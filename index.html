@@ -12,10 +12,10 @@
     }
 
     body {
-      background-color: #1a1a1c;
+      background-color: #0f0e11; /* Глубокий черный, как фон списка чатов */
       font-family: 'Georgia', 'Times New Roman', 'Book Antiqua', serif;
       min-height: 100vh;
-      color: #d4d0d8;
+      color: #d9d4dd; /* Мягкий белый текст, как в сообщениях */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,25 +23,25 @@
     }
 
     :root {
-      --bg-card: #212025;
-      --border-light: #3a3540;
-      --text-primary: #d9d3e0;
-      --text-secondary: #b0a8ba;
-      --accent-violet: #7d6b94;
-      --accent-green: #6b8560;
+      --bg-card: #16151a; /* Цвет фона карточек (темно-серый, близкий к черному) */
+      --border-light: #2b2733; /* Цвет границ (едва заметный фиолетовый оттенок) */
+      --text-primary: #e0d9e8; /* Основной текст */
+      --text-secondary: #9d91af; /* Вторичный текст (как "все" в фильтрах) */
+      --accent-violet: #6d5b88; /* Темно-фиолетовый акцент */
+      --accent-green: #6e8d5f; /* Зеленый акцент, как в Telegram */
     }
 
     .page-container {
       max-width: 950px;
       width: 100%;
-      background-color: #1e1d22;
+      background-color: #121114; /* Общий фон контейнера (черный уголь) */
       border-radius: 1.2rem;
       padding: 2.2rem 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(90, 80, 110, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
       display: flex;
       flex-direction: column;
       gap: 2.2rem;
-      border: 1px solid #2e2b33;
+      border: 1px solid #232026;
     }
 
     .site-header {
@@ -49,7 +49,7 @@
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: space-between;
-      border-bottom: 2px solid #302c38;
+      border-bottom: 2px solid #25222b;
       padding-bottom: 0.9rem;
     }
 
@@ -57,18 +57,18 @@
       font-size: 2.5rem;
       font-weight: 700;
       letter-spacing: 1px;
-      color: #cfc5de;
+      color: #d4c8e6;
       line-height: 1.1;
     }
 
     .logo .accent-dot {
-      color: #6b8560;
+      color: #6e8d5f;
       font-size: 2.8rem;
     }
 
     .logo .sub {
       font-size: 0.9rem;
-      color: #8b7f99;
+      color: #7e6f91;
       margin-top: 0.1rem;
       font-style: italic;
       letter-spacing: 0.4px;
@@ -78,39 +78,39 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      background-color: #2a2433;
+      background-color: #1c1a21;
       padding: 0.5rem 1.3rem;
       border-radius: 2.5rem;
-      color: #c9bdd8;
+      color: #beb1d0;
       font-weight: 500;
       font-size: 0.95rem;
-      border: 1px solid #443c50;
+      border: 1px solid #342e3f;
     }
 
     .author-badge span {
       font-weight: 700;
-      color: #d9cee8;
+      color: #d4c8e6;
     }
 
     .welcome-banner {
-      background-color: #25232a;
+      background-color: #18171e;
       border-radius: 1.2rem;
       padding: 1.2rem 1.8rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      border: 1px solid #363140;
+      border: 1px solid #292530;
     }
 
     .welcome-text h2 {
       font-size: 1.6rem;
       font-weight: 600;
-      color: #d1c7e0;
+      color: #d4c8e6;
     }
 
     .welcome-text p {
-      color: #a399b0;
+      color: #9488a5;
       margin-top: 0.2rem;
       font-size: 0.95rem;
     }
@@ -119,12 +119,12 @@
       display: flex;
       gap: 0.5rem;
       align-items: center;
-      color: #bfb5cc;
+      color: #b3a8c2;
       font-size: 0.9rem;
-      background: #1e1d22;
+      background: #121114;
       padding: 0.2rem 1rem;
       border-radius: 2rem;
-      border: 1px dashed #4a4255;
+      border: 1px dashed #3b3447;
       margin-top: 0.4rem;
     }
 
@@ -132,7 +132,7 @@
       color: #8cb07a;
       text-decoration: none;
       font-weight: 600;
-      border-bottom: 1px dotted #6b8560;
+      border-bottom: 1px dotted #6e8d5f;
     }
 
     .telegram-note a:hover {
@@ -145,14 +145,14 @@
       flex-wrap: wrap;
       gap: 0.6rem;
       align-items: center;
-      background-color: #1f1e24;
+      background-color: #131217;
       border-radius: 2.5rem;
       padding: 0.5rem 1.2rem;
-      border: 1px solid #332f3a;
+      border: 1px solid #26232d;
     }
 
     .filter-label {
-      color: #8b7f99;
+      color: #817193;
       margin-right: 0.2rem;
       font-weight: 500;
       font-size: 0.85rem;
@@ -160,27 +160,27 @@
 
     .filter-btn {
       background: transparent;
-      border: 1px solid #3d3747;
-      color: #b7adc4;
+      border: 1px solid #312c3b;
+      color: #a99bbd;
       padding: 0.35rem 1.2rem;
       border-radius: 20px;
       font-size: 0.85rem;
       cursor: pointer;
-      background-color: #24222a;
+      background-color: #18171e;
       transition: 0.15s;
       font-weight: 500;
     }
 
     .filter-btn.active {
-      background-color: #37442f;
-      border-color: #556b48;
-      color: #c5ddb5;
+      background-color: #2a3324;
+      border-color: #506342;
+      color: #b8d1a5;
       font-weight: 600;
     }
 
     .filter-btn:hover {
-      background-color: #2d2836;
-      border-color: #5a4f68;
+      background-color: #211f27;
+      border-color: #4d445a;
     }
 
     .fanfic-grid {
@@ -191,36 +191,36 @@
     }
 
     .fic-card {
-      background-color: #212025;
+      background-color: #16151a; /* Темно-серый, почти черный, как в чатах */
       border-radius: 1.2rem;
       padding: 1.3rem 1.6rem;
       display: flex;
       flex-wrap: wrap;
       gap: 1.4rem;
-      border: 1px solid #302d36;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid #242129;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
       transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
       cursor: pointer;
     }
 
     .fic-card:hover {
-      border-color: #554b63;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-      background-color: #242329;
+      border-color: #463d56;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.8);
+      background-color: #1b1a21;
       transform: translateY(-2px);
     }
 
     .fic-cover {
       width: 80px;
       height: 105px;
-      background-color: #2a2533;
+      background-color: #1f1c26;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.85rem;
-      color: #7d6b94;
-      border: 1px solid #3d3647;
+      color: #6d5b88;
+      border: 1px solid #2f2a39;
       flex-shrink: 0;
       font-weight: 600;
       letter-spacing: 0.5px;
@@ -240,7 +240,7 @@
     .fic-title {
       font-size: 1.55rem;
       font-weight: 600;
-      color: #d9cee8;
+      color: #d4c8e6;
       display: flex;
       align-items: center;
       gap: 0.7rem;
@@ -248,13 +248,13 @@
     }
 
     .fandom-badge {
-      background-color: #37442f;
-      color: #b5cf9f;
+      background-color: #2a3324;
+      color: #acc793;
       font-size: 0.7rem;
       padding: 0.2rem 0.8rem;
       border-radius: 20px;
       letter-spacing: 0.3px;
-      border: 1px solid #556b48;
+      border: 1px solid #506342;
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -264,19 +264,19 @@
       flex-wrap: wrap;
       gap: 1.2rem;
       font-size: 0.85rem;
-      color: #9389a2;
+      color: #827494;
     }
 
     .pairing {
       color: #8cb07a;
       font-weight: 600;
-      background: #2a3024;
+      background: #21281b;
       padding: 0.1rem 0.7rem;
       border-radius: 14px;
     }
 
     .description {
-      color: #b7adc4;
+      color: #a99bbd;
       line-height: 1.5;
       margin: 0.2rem 0 0.1rem;
       font-size: 0.93rem;
@@ -290,21 +290,21 @@
     }
 
     .tag {
-      background-color: #2a2533;
-      color: #b7a9c8;
+      background-color: #1f1c26;
+      color: #a997b8;
       padding: 0.2rem 0.8rem;
       border-radius: 15px;
       font-size: 0.7rem;
-      border: 1px solid #3d3647;
+      border: 1px solid #2f2a39;
       font-weight: 500;
     }
 
     .footer-note {
       text-align: center;
-      color: #6b617a;
+      color: #5c4f6d;
       font-size: 0.8rem;
       margin-top: 0.8rem;
-      border-top: 1px solid #2a2732;
+      border-top: 1px solid #22202a;
       padding-top: 1.2rem;
       letter-spacing: 0.3px;
     }
