@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>статья: почему стоит избегать незнакомцев | Мефисто</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url('images/фон.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-color: #0f0e11;
+      font-family: 'Georgia', 'Times New Roman', 'Book Antiqua', serif;
+      min-height: 100vh;
+      color: #d9d4dd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 14, 17, 0.7);
+      z-index: 0;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    :root {
+      --bg-card: rgba(22, 21, 26, 0.5);
+      --border-light: #2b2733;
+      --text-primary: #e0d9e8;
+      --text-secondary: #9d91af;
+      --accent-violet: #6d5b88;
+      --accent-green: #6e8d5f;
+      --warning-glow: rgba(180, 70, 100, 0.3);
+    }
+
+    /* Анимация основного контейнера */
+    .page-container {
+      max-width: 950px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 1.2rem;
+      padding: 1.5rem 2.5rem;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid rgba(36, 33, 41, 0.6);
+      backdrop-filter: blur(15px);
+      animation: containerAppear 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+    }
+
+    @keyframes containerAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Кнопка назад с анимацией */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #8cb07a;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 1px dotted #6e8d5f;
+      width: fit-content;
+      background-color: rgba(24, 23, 30, 0.4);
+      backdrop-filter: blur(5px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      border: 1px solid #342e3f;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      animation: slideLeft 0.5s ease-out 0.1s both;
+    }
+
+    @keyframes slideLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .back-link:hover {
+      color: #cbecb0;
+      border-bottom: 1px solid #a8d18e;
+      background-color: rgba(50, 46, 60, 0.8);
+      transform: translateX(-3px) scale(1.01);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-link:active {
+      transform: translateX(-1px) scale(0.98);
+    }
+
+    /* Шапка статьи */
+    .fic-header {
+      border-bottom: 2px solid rgba(37, 34, 43, 0.8);
+      padding-bottom: 1rem;
+      animation: fadeUp 0.6s ease-out 0.15s both;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fic-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #d4c8e6;
+      line-height: 1.2;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .fic-title:hover {
+      text-shadow: 0 0 6px rgba(212, 200, 230, 0.5);
+      letter-spacing: 0.5px;
+    }
+
+    .fic-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      color: #827494;
+      align-items: center;
+    }
+
+    .fandom-badge {
+      background-color: rgba(225, 225, 225, 0.2);
+      backdrop-filter: blur(5px);
+      color: #000000;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .fandom-badge:hover {
+      background-color: rgba(240, 235, 255, 0.4);
+      transform: scale(1.02);
+    }
+
+    .pairing {
+      color: #d4c8e6;
+      font-weight: 600;
+      background: rgba(33, 40, 27, 0.3);
+      backdrop-filter: blur(5px);
+      padding: 0.1rem 0.7rem;
+      border-radius: 14px;
+      transition: all 0.2s;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      background-color: rgba(31, 28, 38, 0.7);
+      backdrop-filter: blur(5px);
+      color: #a997b8;
+      padding: 0.2rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      border: 1px solid #2f2a39;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: default;
+    }
+
+    .tag:hover {
+      background-color: rgba(140, 100, 160, 0.6);
+      color: #f2e6ff;
+      border-color: #8c6bb0;
+      transform: translateY(-2px);
+    }
+
+    /* Основной контент с анимацией */
+    .fic-content {
+      color: #c5bfd2;
+      line-height: 1.8;
+      font-size: 1rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(36, 33, 41, 0.4);
+      animation: contentReveal 0.7s ease-out 0.25s both;
+    }
+
+    @keyframes contentReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .fic-content p {
+      margin-bottom: 1.2rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+      border-radius: 0.5rem;
+    }
+
+    .fic-content p:hover {
+      color: #e2d6f0;
+      background-color: rgba(89, 71, 110, 0.12);
+      padding-left: 0.7rem;
+      transform: translateX(4px);
+    }
+
+    /* Выделение важных фраз */
+    .warning-term {
+      font-weight: 600;
+      color: #e0b0d0;
+      border-bottom: 1px dashed #a06780;
+      transition: all 0.2s;
+    }
+
+    .warning-term:hover {
+      color: #f5cce8;
+      border-bottom-color: #d494b0;
+      text-shadow: 0 0 2px rgba(200, 120, 150, 0.5);
+    }
+
+    .danger-highlight {
+      background: linear-gradient(120deg, rgba(130, 70, 100, 0.25), rgba(90, 50, 70, 0.1));
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.3rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .danger-highlight:hover {
+      background: rgba(150, 80, 110, 0.35);
+    }
+
+    .advice-block {
+      background: rgba(30, 40, 28, 0.4);
+      border-left: 3px solid #6e8d5f;
+      padding: 0.8rem 1.2rem;
+      margin: 1rem 0;
+      border-radius: 0.6rem;
+      transition: all 0.25s;
+    }
+
+    .advice-block:hover {
+      background: rgba(50, 65, 45, 0.5);
+      border-left-color: #9acd7a;
+      transform: translateX(3px);
+    }
+
+    .fic-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.8rem;
+      margin-bottom: 1.2rem;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      animation: imageGlide 0.7s ease-out 0.3s forwards;
+    }
+
+    @keyframes imageGlide {
+      0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .fic-content img:hover {
+      transform: scale(1.01);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      filter: brightness(1.02);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #5c4f6d;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+      border-top: 1px solid rgba(34, 32, 42, 0.6);
+      padding-top: 1.2rem;
+      letter-spacing: 0.3px;
+      transition: all 0.25s;
+      animation: fadeUp 0.5s ease-out 0.4s both;
+    }
+
+    .footer-note:hover {
+      color: #8f7da8;
+      border-top-color: rgba(80, 70, 110, 0.7);
+    }
+
+    .footer-note a {
+      color: #5c4f6d;
+      text-decoration: none;
+      transition: all 0.2s;
+      border-bottom: 1px dotted #6e5b7c;
+    }
+
+    .footer-note a:hover {
+      color: #b6dd9b;
+      border-bottom-color: #8cb07a;
+    }
+
+    /* Ripple эффект */
+    .click-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(180, 150, 210, 0.4);
+      transform: scale(0);
+      animation: rippleExpand 0.5s linear;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes rippleExpand {
+      to {
+        transform: scale(5);
+        opacity: 0;
+      }
+    }
+
+    /* Адаптивность */
+    @media (max-width: 550px) {
+      .page-container {
+        padding: 1.2rem;
+      }
+      .fic-title {
+        font-size: 1.5rem;
+      }
+      .fic-content {
+        padding: 1rem;
+      }
+      .fic-content p:hover {
+        transform: translateX(2px);
+        padding-left: 0.3rem;
+      }
+      .advice-block {
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    /* Эффект для финальной фразы */
+    .final-phrase {
+      font-style: italic;
+      text-align: right;
+      color: #b8a6d4;
+      margin-top: 1.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px dotted #4a3e5a;
+      transition: all 0.2s;
+    }
+
+    .final-phrase:hover {
+      color: #ddccf5;
+      letter-spacing: 0.3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <a href="index.html" class="back-link">← назад к списку</a>
+
+    <div class="fic-header">
+      <h1 class="fic-title">статья: почему стоит избегать незнакомцев.</h1>
+      <div class="fic-meta">
+        <span>автор: <strong>Мефисто</strong></span>
+        <span class="fandom-badge">статья</span>
+        <span class="pairing">—</span>
+      </div>
+      <div class="tags">
+        <span class="tag">статья</span>
+        <span class="tag">незнакомцы</span>
+        <span class="tag">безопасность</span>
+      </div>
+    </div>
+
+    <div class="fic-content">
+      <p>Мы с детства слышим фразу <span class="warning-term">«не разговаривай с незнакомцами»</span>, но с возрастом часто забываем, насколько она важна. Сегодня это правило работает не только на улице, но и в интернете, где чужие люди могут притворяться кем угодно. Опасность не в том, что каждый незнакомец — преступник, а в том, что ты никогда не знаешь наверняка, кто скрывается за аватаркой или дружелюбной улыбкой. Именно эта неопределённость и заставляет быть начеку. <span class="danger-highlight">Избегать незнакомцев — это не трусость, а базовая привычка безопасности</span>, которая однажды может спасти здоровье, деньги или даже жизнь.</p>
+      
+      <p>В реальной жизни злоумышленники часто играют на доверии и эффекте неожиданности. Классическая уловка — попросить о невинной помощи: донести сумку до подъезда, показать дорогу, позвонить по телефону, потому что "батарейка села". Человек включается в ситуацию из вежливости, теряет бдительность, и в этот момент его могут завести в безлюдное место. Другой распространённый сценарий — когда незнакомец представляется сотрудником какой-то службы, курьером или знакомым родителей, чтобы попасть в квартиру. <span class="warning-term">Важно помнить: нормальный взрослый никогда не обратится за помощью к ребёнку или подростку</span>, он найдёт другого взрослого. Именно поэтому просьба от незнакомца на улице — это первый тревожный звоночек, который нельзя игнорировать.</p>
+      
+      <div class="advice-block">
+        ✦ Если незнакомец просит о помощи — держись на расстоянии и предложи обратиться к другим взрослым. Твоя безопасность важнее вежливости.
+      </div>
+      
+      <p>Интернет-пространство даёт преступникам ещё больше возможностей маскироваться под кого угодно. За фотографией милого парня или девушки может скрываться взрослый человек с опасными намерениями, который месяцами втирается в доверие, чтобы потом выманить личные фото или пригласить на встречу. Это называется <span class="warning-term">груминг</span> — когда хищник постепенно приучает жертву к общению на странные темы, чтобы размыть границы допустимого. Часто такие "друзья" просят сохранить общение в тайне от родителей или друзей — <span class="danger-highlight">это самый жирный красный флаг</span>. Если кто-то в сети просит тебя о секретах от близких, значит, он точно задумал что-то нехорошее.</p>
+      
+      <p>Отдельная большая угроза в интернете — мошенники, которые представляются кем угодно ради денег. Они создают фальшивые страницы, втираются в доверие, а затем начинают давить на жалость: якобы попал в беду, срочно нужны деньги на операцию. Подросткам часто предлагают лёгкий заработок, который на деле оказывается ловушкой для кражи банковских данных или вовлечения в преступные схемы. Есть и те, кто обещает раскрутку в соцсетях, просит доступ к аккаунту, а потом просто угоняет его и требует выкуп. <span class="warning-term">Главное правило здесь — любой запрос денег, паролей или интимных фото от незнакомца означает, что общение нужно обрывать мгновенно.</span></p>
+      
+      <div class="advice-block">
+        ✦ Никогда не переводи деньги незнакомцам, не передавай коды из смс и не заходи по подозрительным ссылкам — даже если человек кажется очень убедительным.
+      </div>
+      
+      <p>Важно не просто избегать незнакомцев, но и уметь распознавать тревожные сигналы, которые подаёт собственный организм. Если внутри появляется странное чувство тревоги, дискомфорта или ощущение, что <span class="danger-highlight">"что-то не так"</span> — это интуиция, и ей нужно доверять без оглядки на приличия. Воспитанные люди часто боятся показаться грубыми, но именно эту неловкость и используют манипуляторы. <span class="warning-term">Лучше пять раз ошибиться и показаться невежливым, чем один раз попасть в опасную ситуацию.</span> Безопасность всегда важнее того, что подумает о тебе незнакомый человек.</p>
+      
+      <div class="final-phrase">
+        Берегите себя и своих близких.
+      </div>
+    </div>
+
+    <div class="footer-note">
+      личная коллекция Мефисто · <a href="index.html">вернуться к списку</a>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // Функция ripple для интерактивных элементов
+      function addRipple(event, element) {
+        const rect = element.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        ripple.classList.add('click-ripple');
+        ripple.style.position = 'absolute';
+        ripple.style.pointerEvents = 'none';
+        const originalPosition = getComputedStyle(element).position;
+        if (originalPosition === 'static') element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(ripple);
+        setTimeout(() => {
+          ripple.remove();
+          element.style.overflow = '';
+          if (originalPosition === 'static') element.style.position = '';
+        }, 500);
+      }
+
+      // Обработка всех ссылок с плавным переходом
+      const allLinks = document.querySelectorAll('a');
+      allLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && href !== '#') {
+            e.preventDefault();
+            addRipple(e, this);
+            setTimeout(() => {
+              window.location.href = href;
+            }, 130);
+          }
+        });
+      });
+
+      // Добавляем ripple на теги и выделенные термины
+      const clickableItems = document.querySelectorAll('.tag, .fandom-badge, .warning-term, .danger-highlight');
+      clickableItems.forEach(el => {
+        el.addEventListener('click', function(e) {
+          addRipple(e, this);
+          this.style.transform = 'scale(0.97)';
+          setTimeout(() => { if(this) this.style.transform = ''; }, 150);
+        });
+      });
+
+      // Плавное появление абзацев с задержкой
+      const paragraphs = document.querySelectorAll('.fic-content p');
+      if (paragraphs.length) {
+        paragraphs.forEach((p, idx) => {
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(6px)';
+          p.style.transition = 'opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.35s ease, background 0.2s, padding-left 0.2s';
+          setTimeout(() => {
+            p.style.opacity = '1';
+            p.style.transform = 'translateY(0)';
+          }, 100 + idx * 50);
+        });
+      }
+
+      // Анимация для блоков с советами
+      const adviceBlocks = document.querySelectorAll('.advice-block');
+      if (adviceBlocks.length) {
+        adviceBlocks.forEach((block, i) => {
+          block.style.opacity = '0';
+          block.style.transform = 'translateX(-8px)';
+          block.style.transition = 'opacity 0.45s ease, transform 0.4s ease';
+          setTimeout(() => {
+            block.style.opacity = '1';
+            block.style.transform = 'translateX(0)';
+          }, 250 + i * 100);
+        });
+      }
+
+      // Финальная фраза с легкой анимацией
+      const finalPhrase = document.querySelector('.final-phrase');
+      if (finalPhrase) {
+        finalPhrase.style.opacity = '0';
+        finalPhrase.style.transform = 'scale(0.97)';
+        finalPhrase.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+        setTimeout(() => {
+          finalPhrase.style.opacity = '1';
+          finalPhrase.style.transform = 'scale(1)';
+        }, 480);
+      }
+
+      // Эффект при скролле — легкое изменение фона
+      const container = document.querySelector('.page-container');
+      window.addEventListener('scroll', () => {
+        if (container) {
+          const scrolled = window.scrollY;
+          const newBgOpacity = Math.min(0.4, 0.25 + scrolled * 0.0003);
+          container.style.backgroundColor = `rgba(0, 0, 0, ${0.23 + scrolled * 0.0002})`;
+        }
+      });
+
+      // Микро-анимация для заголовка при загрузке
+      const title = document.querySelector('.fic-title');
+      if (title) {
+        setTimeout(() => {
+          title.style.transition = 'text-shadow 0.2s';
+          title.style.textShadow = '0 0 6px rgba(212,200,230,0.35)';
+          setTimeout(() => {
+            if(title) title.style.textShadow = 'none';
+          }, 550);
+        }, 300);
+      }
+
+      // Добавляем дополнительные стили для анимаций
+      const styleSheet = document.createElement('style');
+      styleSheet.textContent = `
+        .fic-content p {
+          transition: opacity 0.4s ease, transform 0.3s ease, background 0.2s, padding-left 0.2s, color 0.15s;
+        }
+        .advice-block {
+          transition: opacity 0.4s ease, transform 0.3s ease, background 0.2s, border-left-color 0.2s;
+        }
+        .warning-term, .danger-highlight {
+          transition: all 0.2s ease;
+          cursor: default;
+        }
+        .final-phrase {
+          transition: opacity 0.4s ease, transform 0.3s ease, color 0.2s, letter-spacing 0.2s;
+        }
+      `;
+      document.head.appendChild(styleSheet);
+    })();
+  </script>
+</body>
+</html>

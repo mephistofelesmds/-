@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>бебебе</title>
+  <title>босс мафии и его подруга по бизнесу</title>
   <style>
     * {
       margin: 0;
@@ -12,57 +12,151 @@
     }
 
     body {
-      background-color: #0f0e11; /* Глубокий черный */
+      background-image: url('images/фон.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-color: #0f0e11;
       font-family: 'Georgia', 'Times New Roman', 'Book Antiqua', serif;
       min-height: 100vh;
-      color: #d9d4dd; /* Мягкий белый текст */
+      color: #d9d4dd;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
+      position: relative;
     }
 
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 14, 17, 0.7);
+      z-index: 0;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    :root {
+      --bg-card: rgba(22, 21, 26, 0.5);
+      --border-light: #2b2733;
+      --text-primary: #e0d9e8;
+      --text-secondary: #9d91af;
+      --accent-violet: #6d5b88;
+      --accent-green: #6e8d5f;
+      --glow-purple: rgba(109, 91, 136, 0.4);
+    }
+
+    /* Анимация появления страницы */
     .page-container {
       max-width: 950px;
       width: 100%;
-      background-color: #121114; /* Черный уголь */
+      background-color: rgba(0, 0, 0, 0.3);
       border-radius: 1.2rem;
-      padding: 2.2rem 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
+      padding: 1.5rem 2.5rem;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      border: 1px solid #232026;
+      gap: 1rem;
+      border: 1px solid rgba(36, 33, 41, 0.6);
+      backdrop-filter: blur(15px);
+      animation: containerAppear 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
     }
 
+    @keyframes containerAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Анимация кнопки назад */
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: #8cb07a; /* Зеленый акцент */
+      color: #8cb07a;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
       border-bottom: 1px dotted #6e8d5f;
       width: fit-content;
-      transition: color 0.15s;
+      background-color: rgba(24, 23, 30, 0.4);
+      backdrop-filter: blur(5px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      border: 1px solid #342e3f;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      animation: slideInLeft 0.5s ease-out 0.1s both;
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .back-link:hover {
-      color: #a5c994;
-      border-bottom: 1px solid #8cb07a;
+      color: #d0e6bd;
+      border-bottom: 1px solid #a8d18e;
+      background-color: rgba(40, 37, 48, 0.8);
+      transform: translateX(-3px) scale(1.01);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-link:active {
+      transform: translateX(-1px) scale(0.98);
     }
 
     .fic-header {
-      border-bottom: 2px solid #25222b;
+      border-bottom: 2px solid rgba(37, 34, 43, 0.8);
       padding-bottom: 1rem;
+      animation: fadeUp 0.6s ease-out 0.15s both;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .fic-title {
       font-size: 2.2rem;
       font-weight: 700;
-      color: #d4c8e6; /* Светло-фиолетовый текст */
+      color: #d4c8e6;
       line-height: 1.2;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-shadow: 0 0 0 transparent;
+    }
+
+    .fic-title:hover {
+      text-shadow: 0 0 6px rgba(212, 200, 230, 0.5);
+      letter-spacing: 0.5px;
+      transform: scale(1.01);
     }
 
     .fic-meta {
@@ -71,27 +165,42 @@
       gap: 1.2rem;
       margin-top: 0.6rem;
       font-size: 0.9rem;
-      color: #827494; /* Приглушенный фиолетовый */
+      color: #827494;
+      align-items: center;
     }
 
     .fandom-badge {
-      background-color: #2a3324;
-      color: #acc793;
+      background-color: rgba(225, 225, 225, 0.2);
+      backdrop-filter: blur(5px);
+      color: #000000;
       font-size: 0.7rem;
       padding: 0.2rem 0.8rem;
       border-radius: 20px;
       letter-spacing: 0.3px;
-      border: 1px solid #506342;
       font-weight: 600;
       text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .fandom-badge:hover {
+      background-color: rgba(240, 235, 255, 0.4);
+      transform: scale(1.02);
     }
 
     .pairing {
-      color: #8cb07a;
+      color: #d4c8e6;
       font-weight: 600;
-      background: #21281b;
+      background: rgba(33, 40, 27, 0.3);
+      backdrop-filter: blur(5px);
       padding: 0.1rem 0.7rem;
       border-radius: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .pairing:hover {
+      background: rgba(80, 70, 100, 0.5);
+      color: #efe2ff;
+      padding: 0.1rem 0.9rem;
     }
 
     .tags {
@@ -102,28 +211,99 @@
     }
 
     .tag {
-      background-color: #1f1c26;
+      background-color: rgba(31, 28, 38, 0.7);
+      backdrop-filter: blur(5px);
       color: #a997b8;
       padding: 0.2rem 0.8rem;
       border-radius: 15px;
       font-size: 0.7rem;
       border: 1px solid #2f2a39;
       font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: default;
     }
 
+    .tag:hover {
+      background-color: rgba(109, 91, 136, 0.6);
+      color: #f0e4ff;
+      border-color: #7a62a0;
+      transform: translateY(-2px);
+    }
+
+    /* Контент с анимацией появления строк */
     .fic-content {
-      color: #c5bfd2; /* Светлый текст */
+      color: #c5bfd2;
       line-height: 1.8;
       font-size: 1rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(36, 33, 41, 0.4);
+      animation: contentGlow 0.8s ease-out 0.25s both;
+    }
+
+    @keyframes contentGlow {
+      0% {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .fic-content p {
       margin-bottom: 1.2rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+      border-radius: 0.5rem;
+    }
+
+    .fic-content p:hover {
+      color: #e2d6f0;
+      background-color: rgba(109, 91, 136, 0.15);
+      padding-left: 0.8rem;
+      transform: translateX(4px);
+    }
+
+    /* Анимация для диалогов (реплик) */
+    .fic-content p:has(strong) {
+      border-left: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .fic-content p:has(strong):hover {
+      border-left-color: #8cb07a;
     }
 
     .fic-content img {
       max-width: 100%;
       height: auto;
+      border-radius: 0.8rem;
+      margin-bottom: 1.2rem;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      opacity: 0;
+      animation: imageReveal 0.7s ease-out 0.3s forwards;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes imageReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .fic-content img:hover {
+      transform: scale(1.01);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      filter: brightness(1.02);
     }
 
     .chapter-separator {
@@ -132,31 +312,111 @@
       margin: 1.8rem 0;
       font-size: 0.85rem;
       letter-spacing: 2px;
+      transition: all 0.2s;
+    }
+
+    .chapter-separator:hover {
+      color: #8f7da8;
+      letter-spacing: 4px;
     }
 
     .footer-note {
       text-align: center;
       color: #5c4f6d;
       font-size: 0.8rem;
-      border-top: 1px solid #22202a;
-      padding-top: 1rem;
+      margin-top: 0.8rem;
+      border-top: 1px solid rgba(34, 32, 42, 0.6);
+      padding-top: 1.2rem;
       letter-spacing: 0.3px;
+      transition: all 0.25s;
+      animation: fadeUp 0.5s ease-out 0.4s both;
+    }
+
+    .footer-note:hover {
+      color: #8f7da8;
+      border-top-color: rgba(80, 70, 110, 0.7);
+    }
+
+    .footer-note a {
+      color: #5c4f6d;
+      text-decoration: none;
+      transition: all 0.2s;
+      border-bottom: 1px dotted #6e5b7c;
+    }
+
+    .footer-note a:hover {
+      color: #a5c994;
+      border-bottom-color: #8cb07a;
+      letter-spacing: 0.3px;
+    }
+
+    /* Эффект печатной машинки для отдельных элементов (доп. атмосфера) */
+    @keyframes softPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Добавим анимацию при скролле — появление элементов, но через Intersection Observer в JS */
+    .hover-scale {
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     @media (max-width: 550px) {
       .page-container {
-        padding: 1.5rem;
+        padding: 1.2rem;
       }
       .fic-title {
         font-size: 1.6rem;
       }
+      .fic-content {
+        padding: 1rem;
+      }
+      .fic-content p:hover {
+        transform: translateX(2px);
+        padding-left: 0.4rem;
+      }
+    }
+
+    /* ripple эффект для кликов (как на главной) */
+    .click-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(212, 200, 230, 0.35);
+      transform: scale(0);
+      animation: rippleEffect 0.5s linear;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(5);
+        opacity: 0;
+      }
+    }
+
+    /* для диалоговых фраз стиль */
+    .fic-content p:first-letter {
+      font-size: 1.1em;
+    }
+
+    /* Подсветка кавычек и диалогов (дополнительно) */
+    .fic-content p:has(> :is(strong, em)) {
+      border-left: 1px solid #4a3a5a;
+      padding-left: 0.6rem;
+      transition: border-left-color 0.2s, background 0.2s;
+    }
+
+    .fic-content p:has(> :is(strong, em)):hover {
+      border-left-color: #b187d9;
+      background: linear-gradient(90deg, rgba(109, 91, 136, 0.1), transparent);
     }
   </style>
 </head>
 <body>
   <div class="page-container">
 
-    <a href="index.html" class="back-link">&larr; назад к списку</a>
+    <a href="index.html" class="back-link">← назад к списку</a>
 
     <div class="fic-header">
       <h1 class="fic-title">босс мафии и его подруга по бизнесу</h1>
@@ -173,54 +433,165 @@
     </div>
 
     <div class="fic-content">
-      <!-- пример вставки картинки -->
-      <img src="images/картинка1.jpg" alt="описание картинки">
+      <img src="images/картинка1.jpg" alt="сцена в кабинете мафии">
       <p>Глава клана сидел в кожаном кресле с прямой спиной и сцепил пальцы в замок на столе. Идеальный костюм, ни одной лишней складки, лицо как бесстрастная маска; только побелевшие костяшки пальцев выдавали, что тишина в прокуренном подвале стоит невыносимо густая. От запаха Молли (сандал, бергамот и эта тягучая альфья нота, господи боже) в висках нарастал тупой звон. Течка подступала к горлу дурнотой, но Кофеин держал спину, потому что он босс мафии, а не кто попало.</p>
       <p>Молли сидела напротив и закинула ногу на ногу. Брючный костюм сидел безупречно; светлые волосы уложены волосок к волоску; весь облик холодный, как лезвие стилета. За время его затянувшегося молчания она не проронила ни слова, просто медленно перекатывала во рту мятный леденец и глядела сквозь полуопущенные ресницы. Грациозная кошка, а не человек.</p>
-      <p>- Ты сегодня рассеян, Кофеин. Это не на тебя похоже.</p>
+      <p><strong>- Ты сегодня рассеян, Кофеин. Это не на тебя похоже.</strong></p>
       <p>Голос спокойный, почти мурлыкающий; даже не спрашивала, а констатировала факт.</p>
-      <p>- Я в полном порядке», произнес он не разжимая челюстей</p>
+      <p><strong>- Я в полном порядке», произнес он не разжимая челюстей</strong></p>
       <p>Молли поднялась плавно, по-кошачьи (никаких звуков, только шелест ткани), и приблизилась к его креслу. Остановилась за спиной. Тонкие прохладные пальцы легли ему на плечи и чуть сжали сквозь пиджак.</p>
-      <p>- В полном, но не совсем. Альфу не обманешь, Кофеин. У тебя зрачок на всю радужку. И этот запах..</p>
-      <p>Она склонилась к самому уху и понизила голос до интимного полушепота, от которого у него предательски подогнулись пальцы в ботинках: "Сладкий. Мучительно сладкий. Так пахнет омега, который вот-вот сорвется"</p>
+      <p><strong>- В полном, но не совсем. Альфу не обманешь, Кофеин. У тебя зрачок на всю радужку. И этот запах..</strong></p>
+      <p>Она склонилась к самому уху и понизила голос до интимного полушепота, от которого у него предательски подогнулись пальцы в ботинках: <strong>"Сладкий. Мучительно сладкий. Так пахнет омега, который вот-вот сорвется"</strong></p>
       <p>Кофеин медленно втянул воздух. Позволил себе ровно одну секунду слабости — прикрыть глаза, ощущая жар ее дыхания на коже за ухом. Потом открыл их, и на лице снова был безупречный контроль</p>
-      <p>- Молли. Мы на деловой встрече</p>
-      <p>- Да. И ты мой бизнес-партнер</p>
+      <p><strong>- Молли. Мы на деловой встрече</strong></p>
+      <p><strong>- Да. И ты мой бизнес-партнер</strong></p>
       <p>Она обошла кресло и остановилась перед ним, опершись бедром о край стола. Взгляд ленивый, изучающий, как у сфинкса; вся такая невозмутимая, хоть картину пиши</p>
-      <p>- Разве я могу допустить, чтобы мой партнер принимал важные решения в таком состоянии? Сорвешь переговоры; проколешься перед советом. А ты не любишь ошибаться, правда?</p>
+      <p><strong>- Разве я могу допустить, чтобы мой партнер принимал важные решения в таком состоянии? Сорвешь переговоры; проколешься перед советом. А ты не любишь ошибаться, правда?</strong></p>
       <p>Она потянулась к его галстуку — не дернула, а мягко, почти задумчиво поправила узел, скользнув костяшками по кадыку. Кофеин не шелохнулся. Только горло дрогнуло в судорожном глотке, и на этом все.</p>
-      <p>- Вот что мы сделаем -, промурлыкала Молли, и в ее тоне не было ни нажима, ни грубости; только спокойная уверенность альфы, знающей цену своему влиянию. - Я приведу тебя в норму. Быстро, качественно, без лишнего шума. А затем ты соберешься, и мы закончим обсуждение восточного филиала с холодной головой.</p>
+      <p><strong>- Вот что мы сделаем</strong>, — промурлыкала Молли, и в ее тоне не было ни нажима, ни грубости; только спокойная уверенность альфы, знающей цену своему влиянию. <strong>- Я приведу тебя в норму. Быстро, качественно, без лишнего шума. А затем ты соберешься, и мы закончим обсуждение восточного филиала с холодной головой.</strong></p>
       <p>Она опустилась на колени перед его креслом с той же плавной, экономной грацией, с какой делала вообще всё в жизни. Прохладные ладони легли на его бедра и сжали сквозь ткань брюк — успокаивающе, почти утешающе</p>
-      <p>- Охрана за дверью</p>
-      <p>- Я знаю. Поэтому ты будешь сидеть тихо.</p>
+      <p><strong>- Охрана за дверью</strong></p>
+      <p><strong>- Я знаю. Поэтому ты будешь сидеть тихо.</strong></p>
       <p>Тонкие пальцы уверенно потянулись к его ремню. Кофеин выдохнул — длинно, очень медленно, — позволив себе прикрыть глаза ровно на миг.</p>
-      <p>- Хорошо</p>
+      <p><strong>- Хорошо</strong></p>
       <p>Она улыбнулась одними уголками губ и склонила голову</p>
-      <p>- Босс, я пришел!</p>
+      <p><strong>- Босс, я пришел!</strong></p>
       <p>Дверь распахнулась. На пороге застыл хирург Фог с неизменной папкой под мышкой, и вид у него был такой, будто он снова вляпался по полной программе</p>
       <p>Они одновременно вздохнули. Просто идеальная синхронность, честное слово</p>
       <p>Кофеин застегнул ремень одним выверенным движением. Ни тени смущения на лице; поправил манжеты и перевел взгляд на вошедшего — спокойный, тяжелый, ничего не выражающий</p>
-      <p>- Фог</p>
+      <p><strong>- Фог</strong></p>
       <p>Одно слово, но хирург знал этот тон: босс не злится, босс устал. Что в общем-то было еще хуже</p>
-      <p>- Ой. Опять я не вовремя, да?</p>
-      <p>- Фог, это уже 67 раз, когда ты умудряешься вот так неожиданно входить -, Молли поднялась с колен плавно, с кошачьей ленцой, и небрежно отряхнула брюки. На губах играла легкая, почти снисходительная улыбка. - У тебя талант, серьезно</p>
-      <p>- Мда. Я просто счастливчик</p>
+      <p><strong>- Ой. Опять я не вовремя, да?</strong></p>
+      <p><strong>- Фог, это уже 67 раз, когда ты умудряешься вот так неожиданно входить</strong>, — Молли поднялась с колен плавно, с кошачьей ленцой, и небрежно отряхнула брюки. На губах играла легкая, почти снисходительная улыбка. <strong>- У тебя талант, серьезно</strong></p>
+      <p><strong>- Мда. Я просто счастливчик</strong></p>
       <p>он пожал плечами и потряс бумагами</p>
-      <p>- Так вот. Хотел предупредить босса о его проблемах, но, видимо, вы меня опередили. Его анализы, как обычно, готовы</p>
+      <p><strong>- Так вот. Хотел предупредить босса о его проблемах, но, видимо, вы меня опередили. Его анализы, как обычно, готовы</strong></p>
       <p>Кофеин молча протянул руку. Фог вложил папку в его ладонь и отступил на полшага, предусмотрительный малый.</p>
       <p>Босс пробежал глазами по цифрам, захлопнул папку и отложил в сторону. Ни единой эмоции; хоть бы мускул дрогнул, но нет</p>
-      <p>- И? -, Молли изогнула бровь</p>
-      <p>- И всё-, Фог развел руками </p>
-      <p>- Мда -, она вздохнула и изящным жестом поправила волосы. - Что за привычка вечно отвлекать людей, Фог? </p>
-      <p>- Радуйся, что я тебя на камеру не снимаю, когда захожу к боссу</p>
-      <p>- "Радуйся, что я тебя на камеру не снимаю, когда захожу к боссу" -, передразнила Молли с убийственной точностью и фыркнула. - Исчезни</p>
-      
+      <p><strong>- И?</strong> — Молли изогнула бровь</p>
+      <p><strong>- И всё</strong>, — Фог развел руками</p>
+      <p><strong>- Мда</strong>, — она вздохнула и изящным жестом поправила волосы. <strong>- Что за привычка вечно отвлекать людей, Фог?</strong></p>
+      <p><strong>- Радуйся, что я тебя на камеру не снимаю, когда захожу к боссу</strong></p>
+      <p><strong>- "Радуйся, что я тебя на камеру не снимаю, когда захожу к боссу"</strong>, — передразнила Молли с убийственной точностью и фыркнула. <strong>- Исчезни</strong></p>
     </div>
 
     <div class="footer-note">
-      личная коллекция Мефисто &middot; <a href="index.html" style="color: #5c4f6d; text-decoration: none;">вернуться к списку</a>
+      личная коллекция Мефисто · <a href="index.html">вернуться к списку</a>
     </div>
 
   </div>
+
+  <script>
+    (function() {
+      // функция ripple эффекта для всей страницы на кликабельных элементах
+      function addRipple(event, element) {
+        const rect = element.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        ripple.classList.add('click-ripple');
+        ripple.style.position = 'absolute';
+        ripple.style.pointerEvents = 'none';
+        const originalPosition = getComputedStyle(element).position;
+        if (originalPosition === 'static') element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(ripple);
+        setTimeout(() => {
+          ripple.remove();
+          element.style.overflow = '';
+          if (originalPosition === 'static') element.style.position = '';
+        }, 500);
+      }
+
+      // добавляем ripple на все интерактивные элементы: back-link, теги, бейджи, ссылки в футере, а также картинку
+      const interactiveItems = document.querySelectorAll('.back-link, .tag, .fandom-badge, .pairing, .footer-note a, .fic-content img');
+      interactiveItems.forEach(el => {
+        el.addEventListener('click', function(e) {
+          if (this.tagName === 'A' && this.getAttribute('href')) return; // стандартный переход
+          e.preventDefault && e.preventDefault();
+          addRipple(e, this);
+          // для ссылок с переходом — даем переход после анимации
+          if (this.classList.contains('back-link') || this.matches('.footer-note a')) {
+            const href = this.getAttribute('href');
+            if (href && this.tagName === 'A') {
+              setTimeout(() => {
+                window.location.href = href;
+              }, 130);
+            }
+          }
+        });
+      });
+
+      // особо для ссылок переход с ripple
+      const allLinks = document.querySelectorAll('a');
+      allLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (this.getAttribute('href') && this.getAttribute('href') !== '#') {
+            e.preventDefault();
+            addRipple(e, this);
+            const href = this.getAttribute('href');
+            setTimeout(() => {
+              window.location.href = href;
+            }, 140);
+          }
+        });
+      });
+
+      // Анимация появления абзацев с небольшой задержкой для плавности
+      const paragraphs = document.querySelectorAll('.fic-content p');
+      if (paragraphs.length) {
+        paragraphs.forEach((p, idx) => {
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(5px)';
+          p.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out, background 0.2s';
+          setTimeout(() => {
+            p.style.opacity = '1';
+            p.style.transform = 'translateY(0)';
+          }, 100 + idx * 25);
+        });
+      }
+
+      // Плавное появление картинки (уже есть анимация, но дополнительно страхуем)
+      const img = document.querySelector('.fic-content img');
+      if (img && !img.style.opacity) {
+        img.style.opacity = '1';
+      }
+
+      // Эффект свечения для заголовка при наведении
+      const title = document.querySelector('.fic-title');
+      if (title) {
+        title.addEventListener('mouseenter', () => {
+          title.style.transition = 'text-shadow 0.2s, letter-spacing 0.2s';
+        });
+      }
+
+      // добавим атмосферное изменение фона при скролле (незначительный параллакс мыслей)
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const container = document.querySelector('.page-container');
+        if (container) {
+          const opacity = Math.min(0.45, 0.3 + scrolled * 0.0005);
+          container.style.backgroundColor = `rgba(0, 0, 0, ${0.25 + scrolled * 0.0003})`;
+        }
+      });
+
+      // глобальное уведомление – анимация загрузки завершена
+      const style = document.createElement('style');
+      style.textContent = `
+        .fic-content p {
+          transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.3s ease, background 0.2s, padding-left 0.2s;
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // красивая постепенная подсветка текста
+      console.log('страница фанфика анимирована');
+    })();
+  </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Фанфики Мефа</title>
+  <title>Фанфики Мефа — Анимированная библиотека</title>
   <style>
     * {
       margin: 0;
@@ -12,36 +12,82 @@
     }
 
     body {
-      background-color: #0f0e11; /* Глубокий черный, как фон списка чатов */
+      /* Новый фон с изображением */
+      background-image: url('images/фон.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      
+      /* Запасной цвет, если изображение не загрузится */
+      background-color: #0f0e11;
+      
       font-family: 'Georgia', 'Times New Roman', 'Book Antiqua', serif;
       min-height: 100vh;
-      color: #d9d4dd; /* Мягкий белый текст, как в сообщениях */
+      color: #d9d4dd;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
+      
+      /* Затемнение фона для лучшей читаемости */
+      position: relative;
+    }
+
+    /* Полупрозрачное затемнение поверх фона */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 14, 17, 0.7);
+      z-index: 0;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
     }
 
     :root {
-      --bg-card: #16151a; /* Цвет фона карточек (темно-серый, близкий к черному) */
-      --border-light: #2b2733; /* Цвет границ (едва заметный фиолетовый оттенок) */
-      --text-primary: #e0d9e8; /* Основной текст */
-      --text-secondary: #9d91af; /* Вторичный текст (как "все" в фильтрах) */
-      --accent-violet: #6d5b88; /* Темно-фиолетовый акцент */
-      --accent-green: #6e8d5f; /* Зеленый акцент, как в Telegram */
+      --bg-card: rgba(22, 21, 26, 0.7);
+      --border-light: #2b2733;
+      --text-primary: #e0d9e8;
+      --text-secondary: #9d91af;
+      --accent-violet: #6d5b88;
+      --accent-green: #6e8d5f;
+      --glow-purple: rgba(109, 91, 136, 0.6);
     }
 
     .page-container {
       max-width: 950px;
       width: 100%;
-      background-color: #121114; /* Общий фон контейнера (черный уголь) */
-      border-radius: 1.2rem;
-      padding: 2.2rem 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 1.5rem 2.5rem;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
       display: flex;
       flex-direction: column;
-      gap: 2.2rem;
-      border: 1px solid #232026;
+      gap: 1rem;
+      border-radius: 1.8rem;
+      backdrop-filter: blur(3px); /* Оставляем только один общий blur для контейнера */
+      animation: containerGlow 1.2s ease-out;
+      min-height: 80vh;
+    }
+
+    /* Анимация появления контейнера */
+    @keyframes containerGlow {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
     }
 
     .site-header {
@@ -49,8 +95,9 @@
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: space-between;
-      border-bottom: 2px solid #25222b;
+      border-bottom: 2px solid rgba(37, 34, 43, 0.8);
       padding-bottom: 0.9rem;
+      transition: all 0.3s ease;
     }
 
     .logo h1 {
@@ -59,58 +106,92 @@
       letter-spacing: 1px;
       color: #d4c8e6;
       line-height: 1.1;
+      transition: text-shadow 0.3s ease, transform 0.2s;
+      display: inline-block;
+    }
+
+    .logo h1:hover {
+      text-shadow: 0 0 8px rgba(212, 200, 230, 0.6);
+      transform: scale(1.01);
     }
 
     .logo .accent-dot {
-      color: #6e8d5f;
+      color: #b38ed1;
       font-size: 2.8rem;
+      transition: color 0.2s;
     }
 
     .logo .sub {
       font-size: 0.9rem;
-      color: #7e6f91;
+      color: #9d91af;
       margin-top: 0.1rem;
       font-style: italic;
       letter-spacing: 0.4px;
+      opacity: 0.9;
+      transition: opacity 0.3s;
     }
 
     .author-badge {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      background-color: #1c1a21;
+      background-color: rgba(28, 26, 33, 0.6);
       padding: 0.5rem 1.3rem;
       border-radius: 2.5rem;
       color: #beb1d0;
       font-weight: 500;
       font-size: 0.95rem;
       border: 1px solid #342e3f;
+      transition: all 0.25s ease;
     }
 
-    .author-badge span {
-      font-weight: 700;
-      color: #d4c8e6;
+    .author-badge:hover {
+      border-color: #8c79aa;
+      background: rgba(40, 37, 48, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .welcome-banner {
-      background-color: #18171e;
+      background-color: rgba(24, 23, 30, 0.7);
       border-radius: 1.2rem;
       padding: 1.2rem 1.8rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      border: 1px solid #292530;
+      border: 1px solid #8764a3;
+      transition: all 0.25s ease;
+      animation: gentleAppear 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .welcome-banner:hover {
+      border-color: #a97fc9;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transform: translateY(-3px);
+      background: rgba(30, 28, 38, 0.8);
+    }
+
+    @keyframes gentleAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .welcome-text h2 {
       font-size: 1.6rem;
       font-weight: 600;
       color: #d4c8e6;
+      transition: letter-spacing 0.2s;
     }
 
     .welcome-text p {
-      color: #9488a5;
+      color: #8764a3;
       margin-top: 0.2rem;
       font-size: 0.95rem;
     }
@@ -121,23 +202,26 @@
       align-items: center;
       color: #b3a8c2;
       font-size: 0.9rem;
-      background: #121114;
+      background: rgba(18, 17, 20, 0.8);
       padding: 0.2rem 1rem;
       border-radius: 2rem;
       border: 1px dashed #3b3447;
       margin-top: 0.4rem;
+      transition: all 0.2s ease;
     }
 
     .telegram-note a {
-      color: #8cb07a;
+      color: #d4c8e6;
       text-decoration: none;
       font-weight: 600;
       border-bottom: 1px dotted #6e8d5f;
+      transition: color 0.2s, border-color 0.2s, transform 0.1s;
     }
 
     .telegram-note a:hover {
       color: #a5c994;
       border-bottom: 1px solid #8cb07a;
+      transform: translateX(2px);
     }
 
     .filter-bar {
@@ -145,10 +229,11 @@
       flex-wrap: wrap;
       gap: 0.6rem;
       align-items: center;
-      background-color: #131217;
+      background-color: rgba(24, 23, 29, 0.6);
       border-radius: 2.5rem;
       padding: 0.5rem 1.2rem;
-      border: 1px solid #26232d;
+      border: 1px solid rgba(38, 35, 45, 0.8);
+      transition: all 0.2s;
     }
 
     .filter-label {
@@ -156,77 +241,83 @@
       margin-right: 0.2rem;
       font-weight: 500;
       font-size: 0.85rem;
+      letter-spacing: 0.5px;
     }
 
     .filter-btn {
-      background: transparent;
-      border: 1px solid #312c3b;
+      background: rgba(24, 23, 30, 0.4);
       color: #a99bbd;
       padding: 0.35rem 1.2rem;
       border-radius: 20px;
       font-size: 0.85rem;
       cursor: pointer;
-      background-color: #18171e;
-      transition: 0.15s;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       font-weight: 500;
+      border: none;
+      outline: none;
+      font-family: inherit;
     }
 
     .filter-btn.active {
-      background-color: #2a3324;
-      border-color: #506342;
-      color: #b8d1a5;
+      background: rgba(109, 91, 136, 0.7);
+      color: #f2ebff;
       font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 200, 230, 0.5);
+      transform: scale(1.02);
     }
 
-    .filter-btn:hover {
-      background-color: #211f27;
-      border-color: #4d445a;
+    .filter-btn:hover:not(.active) {
+      background: rgba(70, 60, 90, 0.6);
+      color: #e2d5f5;
+      transform: translateY(-2px);
+    }
+
+    .filter-btn:active {
+      transform: scale(0.96);
     }
 
     .fanfic-grid {
       display: flex;
       flex-direction: column;
-      gap: 1.6rem;
+      gap: 1rem;
       margin: 0.3rem 0 0.3rem;
+      flex: 1;
     }
 
+    /* Анимация для карточек (появление при рендере) */
     .fic-card {
-      background-color: #16151a; /* Темно-серый, почти черный, как в чатах */
+      background-color: rgba(0, 0, 0, 0.6);
       border-radius: 1.2rem;
       padding: 1.3rem 1.6rem;
       display: flex;
       flex-wrap: wrap;
       gap: 1.4rem;
-      border: 1px solid #242129;
+      border: 1px solid rgba(36, 33, 41, 0.6);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
       cursor: pointer;
+      animation: cardFloatIn 0.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    /* Анимация появления карточек */
+    @keyframes cardFloatIn {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .fic-card:hover {
-      border-color: #463d56;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.8);
-      background-color: #1b1a21;
-      transform: translateY(-2px);
-    }
-
-    .fic-cover {
-      width: 80px;
-      height: 105px;
-      background-color: #1f1c26;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      color: #6d5b88;
-      border: 1px solid #2f2a39;
-      flex-shrink: 0;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 0.3rem;
+      border-color: #a27fc9;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(170, 130, 200, 0.4);
+      background-color: rgba(27, 26, 33, 0.92);
+      transform: translateY(-5px);
     }
 
     .fic-info {
@@ -245,18 +336,29 @@
       align-items: center;
       gap: 0.7rem;
       flex-wrap: wrap;
+      transition: color 0.2s;
+    }
+
+    .fic-card:hover .fic-title {
+      color: #ecdfff;
+      text-shadow: 0 0 3px rgba(0,0,0,0.3);
     }
 
     .fandom-badge {
-      background-color: #2a3324;
-      color: #acc793;
+      background-color: rgba(225, 225, 225, 0.15);
+      color: #d4c8e6;
       font-size: 0.7rem;
       padding: 0.2rem 0.8rem;
       border-radius: 20px;
       letter-spacing: 0.3px;
-      border: 1px solid #506342;
       font-weight: 600;
       text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .fic-card:hover .fandom-badge {
+      background-color: rgba(240, 235, 255, 0.3);
+      transform: scale(1.02);
     }
 
     .fic-meta {
@@ -264,22 +366,28 @@
       flex-wrap: wrap;
       gap: 1.2rem;
       font-size: 0.85rem;
-      color: #827494;
+      color: #9d91af;
     }
 
     .pairing {
-      color: #8cb07a;
+      color: #d4c8e6;
       font-weight: 600;
-      background: #21281b;
+      background: rgba(33, 40, 27, 0.3);
       padding: 0.1rem 0.7rem;
       border-radius: 14px;
+      transition: background 0.2s;
     }
 
     .description {
-      color: #a99bbd;
+      color: #b38ed1;
       line-height: 1.5;
       margin: 0.2rem 0 0.1rem;
       font-size: 0.93rem;
+      transition: color 0.2s;
+    }
+
+    .fic-card:hover .description {
+      color: #cbade5;
     }
 
     .tags {
@@ -290,13 +398,214 @@
     }
 
     .tag {
-      background-color: #1f1c26;
+      background-color: rgba(31, 28, 38, 0.7);
       color: #a997b8;
       padding: 0.2rem 0.8rem;
       border-radius: 15px;
       font-size: 0.7rem;
       border: 1px solid #2f2a39;
       font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .fic-card:hover .tag {
+      background-color: rgba(80, 70, 100, 0.7);
+      color: #e1ceff;
+      border-color: #6a518a;
+    }
+
+    /* Стили для секции "Обо мне" */
+    .about-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+      animation: gentleAppear 0.6s ease-out;
+    }
+
+    .about-image-strip {
+      width: 100%;
+      height: auto;
+      border-radius: 0.8rem;
+      object-fit: cover;
+      aspect-ratio: 10 / 1;
+      border: 1px solid rgba(110, 90, 140, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      opacity: 0.9;
+    }
+
+    .about-image-strip:hover {
+      border-color: #a27fc9;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 15px rgba(150, 120, 200, 0.3);
+      opacity: 1;
+      transform: scale(1.01);
+    }
+
+    .about-card {
+      background-color: rgba(15, 14, 20, 0.8);
+      border-radius: 1.2rem;
+      padding: 2rem;
+      border: 1px solid rgba(135, 100, 163, 0.6);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: all 0.3s ease;
+      animation: cardFloatIn 0.5s ease-out 0.15s forwards;
+      opacity: 0;
+    }
+
+    .about-card:hover {
+      border-color: #b898e0;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(160, 130, 210, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .about-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      border-bottom: 1px solid rgba(135, 100, 163, 0.4);
+      padding-bottom: 1rem;
+    }
+
+    .about-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #b898e0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      background-color: #2a2435;
+    }
+
+    .about-avatar-placeholder {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6d5b88, #4a3d5c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      border: 2px solid #b898e0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      color: #d4c8e6;
+      font-weight: bold;
+    }
+
+    .about-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d4c8e6;
+      letter-spacing: 0.5px;
+    }
+
+    .about-role {
+      font-size: 0.9rem;
+      color: #b38ed1;
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+
+    .about-content {
+      color: #c8b9e0;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .about-content p {
+      margin-bottom: 0.8rem;
+    }
+
+    /* Стили для инлайн-кнопок (бывшие статы) */
+    .about-stats {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .stat-btn {
+      background: rgba(60, 50, 80, 0.4);
+      padding: 0.6rem 1.2rem;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(110, 90, 140, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+      color: #d4c8e6;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      user-select: none;
+      position: relative;
+    }
+
+    .stat-btn:hover {
+      background: rgba(80, 65, 110, 0.7);
+      border-color: #b898e0;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-btn:active {
+      transform: scale(0.95);
+      background: rgba(100, 80, 140, 0.8);
+    }
+
+    .stat-btn.active-stat {
+      background: rgba(109, 91, 136, 0.8);
+      border-color: #d4c8e6;
+      box-shadow: 0 0 10px rgba(180, 150, 220, 0.4);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #a997b8;
+      display: block;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: #d4c8e6;
+      font-size: 0.95rem;
+    }
+
+    /* Окошко с детальной информацией */
+    .stat-detail-panel {
+      background: rgba(30, 25, 40, 0.8);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      border: 1px solid rgba(160, 130, 200, 0.5);
+      margin-top: 0.5rem;
+      animation: slideDown 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      color: #d4c8e6;
+      line-height: 1.6;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .stat-detail-panel:hover {
+      border-color: #c8b0eb;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 12px rgba(150, 120, 200, 0.2);
+    }
+
+    @keyframes slideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 300px;
+      }
     }
 
     .footer-note {
@@ -304,23 +613,67 @@
       color: #5c4f6d;
       font-size: 0.8rem;
       margin-top: 0.8rem;
-      border-top: 1px solid #22202a;
+      border-top: 1px solid rgba(34, 32, 42, 0.6);
       padding-top: 1.2rem;
       letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+
+    .footer-note:hover {
+      color: #9081a3;
+    }
+
+    /* Анимация загрузки для пустого состояния */
+    @keyframes pulseGlow {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* Стили для красивой кастомной индикации клика */
+    .click-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(212, 200, 230, 0.4);
+      transform: scale(0);
+      animation: rippleEffect 0.5s linear;
+      pointer-events: none;
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
     }
 
     @media (max-width: 550px) {
       .page-container {
-        padding: 1.5rem;
+        padding: 1.2rem;
       }
       .fic-card {
         flex-direction: column;
         align-items: flex-start;
+        padding: 1rem;
       }
-      .fic-cover {
-        width: 60px;
-        height: 40px;
-        font-size: 0.7rem;
+      .fic-title {
+        font-size: 1.3rem;
+      }
+      .filter-btn {
+        padding: 0.25rem 0.9rem;
+        font-size: 0.75rem;
+      }
+      .about-card {
+        padding: 1.2rem;
+      }
+      .about-name {
+        font-size: 1.4rem;
+      }
+      .about-stats {
+        gap: 0.6rem;
+      }
+      .stat-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -338,7 +691,7 @@
       </div>
     </header>
 
-    <div class="welcome-banner">
+    <div class="welcome-banner" id="welcomeBanner">
       <div class="welcome-text">
         <h2>добро пожаловать</h2>
         <p>я выкладываю сюда свои работы. без регистраций, просто чтение. (ХАХАХАХА. Я НЕ МОГ НАД ЭТИМ НЕ ПОШУТИТЬ)</p>
@@ -350,107 +703,407 @@
 
     <div class="filter-bar">
       <span class="filter-label">навигация</span>
+      <div class="filter-btn" data-filter="obomne">обо мне</div>
       <div class="filter-btn active" data-filter="all">все работы</div>
       <div class="filter-btn" data-filter="kmshiki">кмщики</div>
       <div class="filter-btn" data-filter="fd">по фд</div>
+      <div class="filter-btn" data-filter="ctat">статьи</div>
       <div class="filter-btn" data-filter="completed">завершенные</div>
+      
     </div>
 
     <div class="fanfic-grid" id="fanficGrid">
-      <!-- карточки будут добавляться через JavaScript из библиотеки -->
+      <!-- карточки будут добавляться через JavaScript анимированно -->
     </div>
 
+    <div class="footer-note" id="footerNote">
+      библиотека обновляется
+    </div>
   </div>
 
   <script>
-    // БИБЛИОТЕКА ФАНФИКОВ
-    // Добавляй новые объекты в этот массив.
-    // Поля:
-    //   title       - название фанфика
-    //   fandom      - фандом (например "гарри поттер")
-    //   pairing     - пейринг (например "драко/гермиона")
-    //   words       - количество слов (строка, например "48K")
-    //   description - описание
-    //   tags        - массив строк, теги
-    //   category    - категория для сортировки: "kmshiki" / "fd" / "completed" / "all"
-    //   coverText   - текст на обложке (например "текст")
-    //   link        - ссылка на файл с фанфиком (например "файл1.html")
+    // расширенная библиотека с дополнительными фанфиками для демонстрации категорий
     const library = [
       {
         title: "босс мафии и его подруга по бизнесу",
-        fandom: "кмщики \ ориджинал",
+        fandom: "кмщики \\ ориджинал",
         pairing: "молли и кафеин",
-        description: "а вот это уже нифига себе",
+        description: "а вот это уже нифига себе. мафиозные разборки и омегаверсный накал.",
         tags: ["мафия", "омега", "альфа"],
         category: "kmshiki",
-        coverText: "мафия",
         link: "файл1.html"
+      },
+      {
+        title: "статья: статья 117 ук РФ.",
+        fandom: "статья",
+        pairing: "",
+        description: "часть 1: статья 117 УК РФ 'Истязание' — юридический разбор",
+        tags: ["статья", "уголовный кодекс"],
+        category: "ctat",
+        link: "файл2.html"
+      },
+      {
+        title: "статья: почему стоит избегать незнакомцев.",
+        fandom: "статья",
+        pairing: "",
+        description: "часть 1: разговорная статья о психологической безопасности.",
+        tags: ["статья", "безопасность"],
+        category: "ctat",
+        link: "файл3.html"
       }
     ];
 
+    // Информация "Обо мне"
+    const aboutInfo = {
+      name: "Мефисто",
+      role: "автор всей фигни.",
+      avatar: "images/avatar.jpg", // путь к аватарке
+      content: `
+        <p>Я Мефисто — создатель сайта и автор всех работ, которые ты здесь видишь.</p>
+        <p>пишу обо всем, что приде в голову. начиная от обычных статей, заканчивая фанфиками.</p>
+        <p>Также увлекаюсь юридической тематикой — отсюда статьи про УК РФ и прочие серьёзные вещи.</p>
+        <p>особенно люблю делать разговорники.</p>
+        <p>и по возможности буду делать интервью.</p>
+        <p>P.S. Этот сайт я собрал сам, так что возможны баги и странные анимации.</p>
+      `,
+      stats: [
+        { 
+          label: "мой..", 
+          value: "MBTI", 
+          detail: "INTJ - аналитик. Этот тип архитекторов систем, статегов и реформаторов. являюсь я интровертом." 
+        },
+        { 
+          label: "мой..", 
+          value: "любимый аниме сериал", 
+          detail: "синий экзорцист." 
+        }
+      ],
+      images: {
+        top: "images/about_top.png",
+        bottom: "images/about_bottom.png"
+      }
+    };
+
     const grid = document.getElementById('fanficGrid');
+    const welcomeBanner = document.getElementById('welcomeBanner');
+    const footerNote = document.getElementById('footerNote');
     const filterButtons = document.querySelectorAll('.filter-btn');
 
-    // Функция создания HTML-карточки из объекта
-    function createFicCard(fic) {
+    // Функция создания ripple эффекта на карточке при клике
+    function addRippleEffect(event, element) {
+      const rect = element.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      ripple.classList.add('click-ripple');
+      ripple.style.position = 'absolute';
+      ripple.style.pointerEvents = 'none';
+      element.style.position = 'relative';
+      element.style.overflow = 'hidden';
+      element.appendChild(ripple);
+      setTimeout(() => {
+        ripple.remove();
+        element.style.overflow = '';
+      }, 500);
+    }
+
+    // Генерация карточки фанфика с анимацией
+    function createFicCard(fic, delayIndex = 0) {
       const card = document.createElement('div');
       card.className = 'fic-card';
       card.dataset.category = fic.category;
+      
+      const delay = Math.min(delayIndex * 0.05, 0.4);
+      card.style.animation = `cardFloatIn 0.45s ease-out ${delay}s forwards`;
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(12px)';
 
       card.innerHTML = `
-        <div class="fic-cover">${fic.coverText}</div>
         <div class="fic-info">
           <div class="fic-title">
-            ${fic.title}
-            <span class="fandom-badge">${fic.fandom}</span>
+            ${escapeHtml(fic.title)}
+            <span class="fandom-badge">${escapeHtml(fic.fandom)}</span>
           </div>
           <div class="fic-meta">
             <span>автор: <strong>Мефисто</strong></span>
-            <span class="pairing">${fic.pairing}</span>
+            <span class="pairing">${fic.pairing ? escapeHtml(fic.pairing) : '—'}</span>
           </div>
           <div class="description">
-            ${fic.description}
+            ${escapeHtml(fic.description)}
           </div>
           <div class="tags">
-            ${fic.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${fic.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
           </div>
         </div>
       `;
 
-      // Добавляем обработчик клика для перехода по ссылке
-      card.addEventListener('click', function() {
+      card.addEventListener('click', function(e) {
+        e.stopPropagation();
+        addRippleEffect(e, card);
         if (fic.link) {
-          window.location.href = fic.link;
+          setTimeout(() => {
+            window.location.href = fic.link;
+          }, 130);
+        } else {
+          showToast('глава в разработке, скоро появится');
         }
       });
 
       return card;
     }
 
-    // Отображение всех карточек (или отфильтрованных)
+    // Создание секции "Обо мне"
+    function createAboutSection() {
+      const container = document.createElement('div');
+      container.className = 'about-container';
+
+      const topImg = document.createElement('img');
+      topImg.className = 'about-image-strip';
+      topImg.src = aboutInfo.images.top;
+      topImg.alt = 'декоративное изображение сверху';
+      topImg.onerror = function() {
+        this.style.display = 'none';
+      };
+
+      // Карточка с информацией
+      const aboutCard = document.createElement('div');
+      aboutCard.className = 'about-card';
+
+      // Создаём аватар
+      const avatarHTML = aboutInfo.avatar 
+        ? `<img src="${aboutInfo.avatar}" alt="аватар" class="about-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+        : '';
+      const avatarPlaceholder = aboutInfo.avatar 
+        ? `<div class="about-avatar-placeholder" style="display:none;">${aboutInfo.name.charAt(0)}</div>`
+        : `<div class="about-avatar-placeholder">${aboutInfo.name.charAt(0)}</div>`;
+
+      // Создаём кнопки-статы
+      const statsHTML = aboutInfo.stats.map((stat, index) => `
+        <div class="stat-btn" data-stat-index="${index}">
+          <div>
+            <span class="stat-label">${stat.label}</span>
+            <span class="stat-value">${stat.value}</span>
+          </div>
+        </div>
+      `).join('');
+
+      aboutCard.innerHTML = `
+        <div class="about-header">
+          ${avatarHTML}
+          ${avatarPlaceholder}
+          <div>
+            <div class="about-name">${aboutInfo.name}</div>
+            <div class="about-role">${aboutInfo.role}</div>
+          </div>
+        </div>
+        <div class="about-content">
+          ${aboutInfo.content}
+        </div>
+        <div class="about-stats" id="aboutStatsContainer">
+          ${statsHTML}
+        </div>
+        <div id="statDetailPanel" style="display: none;"></div>
+      `;
+
+      // Нижнее изображение 10:1
+      const bottomImg = document.createElement('img');
+      bottomImg.className = 'about-image-strip';
+      bottomImg.src = aboutInfo.images.bottom;
+      bottomImg.alt = 'декоративное изображение снизу';
+      bottomImg.onerror = function() {
+        this.style.display = 'none';
+      };
+
+      container.appendChild(topImg);
+      container.appendChild(aboutCard);
+      container.appendChild(bottomImg);
+
+      // Добавляем обработчики для кнопок-статов
+      setTimeout(() => {
+        const statButtons = aboutCard.querySelectorAll('.stat-btn');
+        const detailPanel = aboutCard.querySelector('#statDetailPanel');
+        
+        statButtons.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const index = parseInt(this.dataset.statIndex);
+            const stat = aboutInfo.stats[index];
+            
+            // Убираем активный класс со всех кнопок
+            statButtons.forEach(b => b.classList.remove('active-stat'));
+            
+            // Если кликнули по уже активной кнопке — скрываем панель
+            if (detailPanel.style.display === 'block' && detailPanel.dataset.activeIndex == index) {
+              detailPanel.style.display = 'none';
+              detailPanel.dataset.activeIndex = '';
+              return;
+            }
+            
+            // Показываем панель с детальной информацией
+            this.classList.add('active-stat');
+            detailPanel.innerHTML = `
+              <div class="stat-detail-panel">
+                ${stat.detail}
+              </div>
+            `;
+            detailPanel.style.display = 'block';
+            detailPanel.dataset.activeIndex = index;
+            
+            // Анимация появления
+            const panelContent = detailPanel.querySelector('.stat-detail-panel');
+            if (panelContent) {
+              panelContent.style.animation = 'none';
+              panelContent.offsetHeight; // reflow
+              panelContent.style.animation = 'slideDown 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            }
+          });
+        });
+      }, 100);
+
+      return container;
+    }
+
+    // утилита для защиты от XSS
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    // Показать toast-уведомление
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.textContent = message;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '20px';
+      toast.style.left = '50%';
+      toast.style.transform = 'translateX(-50%)';
+      toast.style.backgroundColor = '#1e1c28';
+      toast.style.color = '#d4c8e6';
+      toast.style.padding = '0.6rem 1.4rem';
+      toast.style.borderRadius = '40px';
+      toast.style.fontSize = '0.85rem';
+      toast.style.zIndex = '999';
+      toast.style.border = '1px solid #6d5b88';
+      toast.style.fontWeight = '500';
+      toast.style.letterSpacing = '0.5px';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2000);
+    }
+
+    // рендер с плавной заменой
     function renderCards(filter = 'all') {
-      grid.innerHTML = '';
+      // Скрываем welcome-баннер и футер если это "обо мне"
+      if (filter === 'obomne') {
+        welcomeBanner.style.display = 'none';
+        footerNote.style.display = 'none';
+      } else {
+        welcomeBanner.style.display = '';
+        footerNote.style.display = '';
+      }
+
+      const oldCards = document.querySelectorAll('.fic-card, .about-container');
+      if (oldCards.length) {
+        grid.style.transition = 'opacity 0.12s';
+        grid.style.opacity = '0.5';
+        setTimeout(() => {
+          grid.innerHTML = '';
+          grid.style.opacity = '1';
+          grid.style.transition = '';
+          insertContent(filter);
+        }, 130);
+      } else {
+        grid.innerHTML = '';
+        insertContent(filter);
+      }
+    }
+
+    function insertContent(filter) {
+      // Если выбрано "обо мне" — показываем специальную секцию
+      if (filter === 'obomne') {
+        const aboutSection = createAboutSection();
+        grid.appendChild(aboutSection);
+        return;
+      }
+
+      // Иначе показываем карточки фанфиков
       const filtered = filter === 'all' 
         ? library 
         : library.filter(fic => fic.category === filter);
       
-      filtered.forEach(fic => {
-        grid.appendChild(createFicCard(fic));
+      if (filtered.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'fic-card';
+        emptyMsg.style.textAlign = 'center';
+        emptyMsg.style.justifyContent = 'center';
+        emptyMsg.style.background = 'rgba(0,0,0,0.5)';
+        emptyMsg.style.cursor = 'default';
+        emptyMsg.innerHTML = `<div class="fic-info" style="align-items:center;"><div class="fic-title">ничего не найдено</div><div class="description">попробуй другую категорию</div></div>`;
+        grid.appendChild(emptyMsg);
+        return;
+      }
+      
+      filtered.forEach((fic, idx) => {
+        const card = createFicCard(fic, idx);
+        grid.appendChild(card);
       });
+      
+      const newCards = document.querySelectorAll('.fic-card');
+      if (newCards.length) {
+        newCards.forEach((card, i) => {
+          card.style.animation = `cardFloatIn 0.4s ease-out ${Math.min(i * 0.04, 0.35)}s forwards`;
+        });
+      }
     }
 
-    // Обработчики на кнопки фильтра
+    // Обработка кнопок фильтра
     filterButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(e) {
+        this.style.transform = 'scale(0.96)';
+        setTimeout(() => { if(this) this.style.transform = ''; }, 120);
+        
         filterButtons.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         const filter = this.dataset.filter;
         renderCards(filter);
       });
     });
-
-    // Первоначальная отрисовка
+    
+    // первоначальный рендер
     renderCards('all');
+    
+    // Приветственный toast
+    const welcomeToast = document.createElement('div');
+    welcomeToast.innerText = 'библиотека оживает';
+    welcomeToast.style.position = 'fixed';
+    welcomeToast.style.bottom = '30px';
+    welcomeToast.style.right = '20px';
+    welcomeToast.style.backgroundColor = 'rgba(30, 28, 45, 0.8)';
+    welcomeToast.style.padding = '0.4rem 1rem';
+    welcomeToast.style.borderRadius = '50px';
+    welcomeToast.style.fontSize = '0.8rem';
+    welcomeToast.style.border = '1px solid #77659e';
+    welcomeToast.style.color = '#ddceff';
+    welcomeToast.style.zIndex = '999';
+    welcomeToast.style.opacity = '0';
+    welcomeToast.style.transition = 'opacity 0.4s ease';
+    document.body.appendChild(welcomeToast);
+    setTimeout(() => {
+      welcomeToast.style.opacity = '1';
+      setTimeout(() => {
+        welcomeToast.style.opacity = '0';
+        setTimeout(() => welcomeToast.remove(), 500);
+      }, 2000);
+    }, 200);
+    
   </script>
 </body>
 </html>
