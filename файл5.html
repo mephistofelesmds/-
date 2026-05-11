@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>статья 200 ук рф</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url('images/фон.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-color: #0f0e11;
+      font-family: 'Georgia', 'Times New Roman', 'Book Antiqua', serif;
+      min-height: 100vh;
+      color: #d9d4dd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 14, 17, 0.7);
+      z-index: 0;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    :root {
+      --bg-card: rgba(22, 21, 26, 0.5);
+      --border-light: #2b2733;
+      --text-primary: #e0d9e8;
+      --text-secondary: #9d91af;
+      --accent-violet: #6d5b88;
+      --accent-green: #6e8d5f;
+      --glow-purple: rgba(109, 91, 136, 0.4);
+    }
+
+    /* Анимация появления страницы */
+    .page-container {
+      max-width: 950px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 1.2rem;
+      padding: 1.5rem 2.5rem;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid rgba(36, 33, 41, 0.6);
+      backdrop-filter: blur(15px);
+      animation: containerAppear 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+    }
+
+    @keyframes containerAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Анимация кнопки назад */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #8cb07a;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 1px dotted #6e8d5f;
+      width: fit-content;
+      background-color: rgba(24, 23, 30, 0.4);
+      backdrop-filter: blur(5px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      border: 1px solid #342e3f;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      animation: slideInLeft 0.5s ease-out 0.1s both;
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .back-link:hover {
+      color: #d0e6bd;
+      border-bottom: 1px solid #a8d18e;
+      background-color: rgba(40, 37, 48, 0.8);
+      transform: translateX(-3px) scale(1.01);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-link:active {
+      transform: translateX(-1px) scale(0.98);
+    }
+
+    .fic-header {
+      border-bottom: 2px solid rgba(37, 34, 43, 0.8);
+      padding-bottom: 1rem;
+      animation: fadeUp 0.6s ease-out 0.15s both;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fic-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #d4c8e6;
+      line-height: 1.2;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-shadow: 0 0 0 transparent;
+    }
+
+    .fic-title:hover {
+      text-shadow: 0 0 6px rgba(212, 200, 230, 0.5);
+      letter-spacing: 0.5px;
+      transform: scale(1.01);
+    }
+
+    .fic-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      color: #827494;
+      align-items: center;
+    }
+
+    .fandom-badge {
+      background-color: rgba(225, 225, 225, 0.2);
+      backdrop-filter: blur(5px);
+      color: #000000;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .fandom-badge:hover {
+      background-color: rgba(240, 235, 255, 0.4);
+      transform: scale(1.02);
+    }
+
+    .pairing {
+      color: #d4c8e6;
+      font-weight: 600;
+      background: rgba(33, 40, 27, 0.3);
+      backdrop-filter: blur(5px);
+      padding: 0.1rem 0.7rem;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .pairing:hover {
+      background: rgba(80, 70, 100, 0.5);
+      color: #efe2ff;
+      padding: 0.1rem 0.9rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      background-color: rgba(31, 28, 38, 0.7);
+      backdrop-filter: blur(5px);
+      color: #a997b8;
+      padding: 0.2rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      border: 1px solid #2f2a39;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: default;
+    }
+
+    .tag:hover {
+      background-color: rgba(109, 91, 136, 0.6);
+      color: #f0e4ff;
+      border-color: #7a62a0;
+      transform: translateY(-2px);
+    }
+
+    /* Контент с анимацией появления строк */
+    .fic-content {
+      color: #c5bfd2;
+      line-height: 1.8;
+      font-size: 1rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(36, 33, 41, 0.4);
+      animation: contentGlow 0.8s ease-out 0.25s both;
+    }
+
+    @keyframes contentGlow {
+      0% {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .fic-content p {
+      margin-bottom: 1.2rem;
+      transition: all 0.25s ease;
+      padding: 0.2rem 0;
+      border-radius: 0.5rem;
+    }
+
+    .fic-content p:hover {
+      color: #e2d6f0;
+      background-color: rgba(109, 91, 136, 0.15);
+      padding-left: 0.8rem;
+      transform: translateX(4px);
+    }
+
+    /* Анимация для диалогов (реплик) */
+    .fic-content p:has(strong) {
+      border-left: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .fic-content p:has(strong):hover {
+      border-left-color: #8cb07a;
+    }
+
+    .fic-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.8rem;
+      margin-bottom: 1.2rem;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      opacity: 0;
+      animation: imageReveal 0.7s ease-out 0.3s forwards;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes imageReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .fic-content img:hover {
+      transform: scale(1.01);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      filter: brightness(1.02);
+    }
+
+    .chapter-separator {
+      text-align: center;
+      color: #5c4f6d;
+      margin: 1.8rem 0;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      transition: all 0.2s;
+    }
+
+    .chapter-separator:hover {
+      color: #8f7da8;
+      letter-spacing: 4px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #5c4f6d;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+      border-top: 1px solid rgba(34, 32, 42, 0.6);
+      padding-top: 1.2rem;
+      letter-spacing: 0.3px;
+      transition: all 0.25s;
+      animation: fadeUp 0.5s ease-out 0.4s both;
+    }
+
+    .footer-note:hover {
+      color: #8f7da8;
+      border-top-color: rgba(80, 70, 110, 0.7);
+    }
+
+    .footer-note a {
+      color: #5c4f6d;
+      text-decoration: none;
+      transition: all 0.2s;
+      border-bottom: 1px dotted #6e5b7c;
+    }
+
+    .footer-note a:hover {
+      color: #a5c994;
+      border-bottom-color: #8cb07a;
+      letter-spacing: 0.3px;
+    }
+
+    /* Эффект печатной машинки для отдельных элементов (доп. атмосфера) */
+    @keyframes softPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Добавим анимацию при скролле — появление элементов, но через Intersection Observer в JS */
+    .hover-scale {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    @media (max-width: 550px) {
+      .page-container {
+        padding: 1.2rem;
+      }
+      .fic-title {
+        font-size: 1.6rem;
+      }
+      .fic-content {
+        padding: 1rem;
+      }
+      .fic-content p:hover {
+        transform: translateX(2px);
+        padding-left: 0.4rem;
+      }
+    }
+
+    /* ripple эффект для кликов (как на главной) */
+    .click-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(212, 200, 230, 0.35);
+      transform: scale(0);
+      animation: rippleEffect 0.5s linear;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(5);
+        opacity: 0;
+      }
+    }
+
+    /* для диалоговых фраз стиль */
+    .fic-content p:first-letter {
+      font-size: 1.1em;
+    }
+
+    /* Подсветка кавычек и диалогов (дополнительно) */
+    .fic-content p:has(> :is(strong, em)) {
+      border-left: 1px solid #4a3a5a;
+      padding-left: 0.6rem;
+      transition: border-left-color 0.2s, background 0.2s;
+    }
+
+    .fic-content p:has(> :is(strong, em)):hover {
+      border-left-color: #b187d9;
+      background: linear-gradient(90deg, rgba(109, 91, 136, 0.1), transparent);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <a href="index.html" class="back-link">← назад к списку</a>
+
+    <div class="fic-header">
+      <h1 class="fic-title">статья 200 УК РФ 'обман потребителей' — юридический разбор</h1>
+      <div class="fic-meta">
+        <span>автор: <strong>Мефисто</strong></span>
+        <span class="fandom-badge">статья</span>
+        <span class="pairing"> </span>
+      </div>
+      <div class="tags">
+        <span class="tag">статья</span>
+        <span class="tag">уголовный кодекс</span>
+      </div>
+    </div>
+
+    <div class="fic-content">
+      <img src="images/картинка1.jpg" alt="сцена в кабинете мафии">
+      <p>Статья 200 Уголовного кодекса Российской Федерации — это, пожалуй, один из самых ярких примеров того, как закон может кочевать из кодекса в кодекс, менять своё содержание и в итоге превратиться в нечто совершенно иное, чем было задумано изначально. На сегодняшний день действующая редакция этой статьи посвящена вовсе не хозяйственным преступлениям, а совсем другой и крайне острой теме — незаконному обороту наркотиков. Если точнее, статья 200 теперь называется «Нарушение правил оборота наркотических средств или психотропных веществ» и наказывает тех, кто нарушает установленные государством правила производства, хранения, перевозки или уничтожения таких веществ. Это статья для «легальных» участников оборота — фармацевтов, врачей, сотрудников лабораторий, которые обязаны соблюдать строжайшие регламенты, но по какой-то причине этого не делают.</p>
+      <p>Чтобы понять, как статья пришла к своему нынешнему виду, нужно отмотать время назад, в 1996 год, когда принимался действующий Уголовный кодекс. В тот момент статья 200 УК РФ называлась «Обман потребителей» и была настоящей грозой продавцов и предпринимателей. Она наказывала за обвешивание, обсчёт, введение в заблуждение о свойствах товара и прочие уловки, знакомые каждому, кто застал рынки девяностых. Это была очень рабочая и часто применяемая статья, по которой возбуждались десятки тысяч дел в год. Однако в 2003 году в рамках масштабной либерализации уголовного законодательства статью 200 полностью отменили, а обман потребителей перевели в разряд административных правонарушений, посчитав, что Уголовный кодекс не должен заниматься такими мелкими спорами между продавцом и покупателем.</p>
+      <p>После отмены «Обмана потребителей» номер статьи 200 некоторое время оставался пустым, как заброшенный дом, пока в 2013 году туда не въехали новые жильцы. Законодатель решил использовать освободившееся место для борьбы с нарушениями в сфере оборота наркотиков, которые совершают не наркоторговцы с улицы, а люди в белых халатах. Так родилась действующая редакция, которая наказывает за нарушение правил оборота наркотических средств, психотропных веществ, их прекурсоров, а также растений и грибов, содержащих такие вещества. Важный нюанс: под статью попадает только то лицо, в чьи служебные обязанности входило соблюдение этих правил. Если обычный человек потерял пакетик с запрещённым веществом, это будет другая статья. А вот если медсестра неправильно списала ампулу с сильнодействующим обезболивающим или сотрудник аптеки не обеспечил должное хранение — это уже территория 200-й.</p>
+      <p>Состав преступления сконструирован хитро: ответственность наступает только в том случае, если нарушение правил было не случайным, а по легкомыслию или халатности, и при этом деяние повлекло реальные последствия. Под последствиями закон понимает утрату наркотического средства или психотропного вещества, причинение вреда здоровью человека или любую другую ситуацию, когда государство утратило контроль над опасным веществом. Если же нарушение правил было совершено, но ничего страшного не произошло — например, журнал учёта заполнили с ошибкой, но все ампулы на месте, — уголовная ответственность по данной статье не наступает. Это специально сделано для того, чтобы отсеять технические помарки от действительно опасных ситуаций, когда препарат мог уйти на чёрный рынок или попасть в руки случайному человеку.</p>
+      <p>Особо квалифицированный состав, то есть более строгая часть статьи, предусматривает ответственность за те же действия, если они повлекли по неосторожности смерть человека или иные тяжкие последствия. Здесь уже наказание может доходить до лишения свободы на длительный срок, потому что речь идёт о ситуациях, когда халатность стоила кому-то жизни. Например, если наркотический препарат был утрачен и попал в руки подростку, который умер от передозировки.</p>
+      <p>В таком случае отвечать по статье 200 будет не тот, кто продал вещество, а тот, кто из-за своей халатности позволил ему утечь из легального оборота. Это важный юридический механизм, который держит в тонусе всю фармацевтическую и медицинскую сферы, где работа с наркотическими веществами — это повседневная реальность, а не преступление.</p>
+      <p>Если сравнивать 200-ю статью с её соседками по кодексу, то она занимает нишу между чисто медицинскими нарушениями и полноценным наркотрафиком. Статья 228 наказывает за незаконное приобретение и хранение для личного употребления, статья 228.1 — за сбыт, а статья 200 — за разгильдяйство в легальном обороте. Она не про злой умысел, а про бардак, который привёл к тому, что опасное вещество ушло гулять в народ. Именно поэтому среди осуждённых по ней редко встретишь уголовников в классическом понимании — чаще это провизоры, лаборанты, медицинские сёстры и заведующие складами, чья преступная небрежность обернулась катастрофой. Таков современный облик статьи, которая начинала свою жизнь с обсчёта на копейки в магазине, а теперь охраняет границу между медициной и подпольным рынком.</p>
+    </div>
+
+    <div class="footer-note">
+      личная коллекция Мефисто · <a href="index.html">вернуться к списку</a>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // функция ripple эффекта для всей страницы на кликабельных элементах
+      function addRipple(event, element) {
+        const rect = element.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        ripple.classList.add('click-ripple');
+        ripple.style.position = 'absolute';
+        ripple.style.pointerEvents = 'none';
+        const originalPosition = getComputedStyle(element).position;
+        if (originalPosition === 'static') element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(ripple);
+        setTimeout(() => {
+          ripple.remove();
+          element.style.overflow = '';
+          if (originalPosition === 'static') element.style.position = '';
+        }, 500);
+      }
+
+      // добавляем ripple на все интерактивные элементы: back-link, теги, бейджи, ссылки в футере, а также картинку
+      const interactiveItems = document.querySelectorAll('.back-link, .tag, .fandom-badge, .pairing, .footer-note a, .fic-content img');
+      interactiveItems.forEach(el => {
+        el.addEventListener('click', function(e) {
+          if (this.tagName === 'A' && this.getAttribute('href')) return; // стандартный переход
+          e.preventDefault && e.preventDefault();
+          addRipple(e, this);
+          // для ссылок с переходом — даем переход после анимации
+          if (this.classList.contains('back-link') || this.matches('.footer-note a')) {
+            const href = this.getAttribute('href');
+            if (href && this.tagName === 'A') {
+              setTimeout(() => {
+                window.location.href = href;
+              }, 130);
+            }
+          }
+        });
+      });
+
+      // особо для ссылок переход с ripple
+      const allLinks = document.querySelectorAll('a');
+      allLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (this.getAttribute('href') && this.getAttribute('href') !== '#') {
+            e.preventDefault();
+            addRipple(e, this);
+            const href = this.getAttribute('href');
+            setTimeout(() => {
+              window.location.href = href;
+            }, 140);
+          }
+        });
+      });
+
+      // Анимация появления абзацев с небольшой задержкой для плавности
+      const paragraphs = document.querySelectorAll('.fic-content p');
+      if (paragraphs.length) {
+        paragraphs.forEach((p, idx) => {
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(5px)';
+          p.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out, background 0.2s';
+          setTimeout(() => {
+            p.style.opacity = '1';
+            p.style.transform = 'translateY(0)';
+          }, 100 + idx * 25);
+        });
+      }
+
+      // Плавное появление картинки (уже есть анимация, но дополнительно страхуем)
+      const img = document.querySelector('.fic-content img');
+      if (img && !img.style.opacity) {
+        img.style.opacity = '1';
+      }
+
+      // Эффект свечения для заголовка при наведении
+      const title = document.querySelector('.fic-title');
+      if (title) {
+        title.addEventListener('mouseenter', () => {
+          title.style.transition = 'text-shadow 0.2s, letter-spacing 0.2s';
+        });
+      }
+
+      // добавим атмосферное изменение фона при скролле (незначительный параллакс мыслей)
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const container = document.querySelector('.page-container');
+        if (container) {
+          const opacity = Math.min(0.45, 0.3 + scrolled * 0.0005);
+          container.style.backgroundColor = `rgba(0, 0, 0, ${0.25 + scrolled * 0.0003})`;
+        }
+      });
+
+      // глобальное уведомление – анимация загрузки завершена
+      const style = document.createElement('style');
+      style.textContent = `
+        .fic-content p {
+          transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.3s ease, background 0.2s, padding-left 0.2s;
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // красивая постепенная подсветка текста
+      console.log('страница фанфика анимирована');
+    })();
+  </script>
+</body>
+</html>
