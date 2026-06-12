@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>УРАВИТИ | Инфо канал</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_cadcircei.css">
+</head>
+<body>
+
+<div class="cad-container">
+    <!-- Декоративные уголки -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <header class="cad-header">
+        <div class="header-top">
+            <div class="avatar-frame split-avatar">
+                <div class="avatar-half avatar-left">
+                    <img src="images/cad_left.jpg" alt="Светлая сторона" onerror="this.style.display='none'; this.parentElement.querySelector('.half-fallback').style.display='flex';">
+                    <div class="half-fallback" style="display:none;">◐</div>
+                </div>
+                <div class="avatar-half avatar-right">
+                    <img src="../images/cad_right.jpg" alt="Тёмная сторона" onerror="this.style.display='none'; this.parentElement.querySelector('.half-fallback').style.display='flex';">
+                    <div class="half-fallback" style="display:none;">◑</div>
+                </div>
+                <!-- Линия раскола -->
+                <div class="split-line"></div>
+            </div>
+            <div class="title-block">
+                <h1>УРАВИТИ</h1>
+                <span class="subtitle">#шарвиканон [РЕСТ]</span>
+                <div class="divider-ornament">&#9670; &mdash; &#9670;</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="cad-nav">
+        <a href="#" class="nav-link active">Главная</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Краш лист</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Союзы и правила</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Прайс</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Админы</a>
+    </nav>
+
+    <main class="cad-content">
+        <div class="content-card">
+            <!-- Трещина раскола -->
+            <div class="crack-effect">
+                <svg class="crack-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path class="crack-path" d="M48,0 L52,15 L45,30 L55,45 L47,60 L53,75 L49,90 L51,100" 
+                          fill="none" stroke="rgba(180,160,200,0)" stroke-width="1.5"/>
+                    <path class="crack-glow" d="M48,0 L52,15 L45,30 L55,45 L47,60 L53,75 L49,90 L51,100" 
+                          fill="none" stroke="rgba(200,180,220,0)" stroke-width="3"/>
+                </svg>
+            </div>
+
+            <h2 class="card-title">Welcome</h2>
+            
+            <!-- Приветственный блок -->
+            <div class="welcome-block">
+                <p>
+                    Привет-привет! На связи Уравити! Добро пожаловать<br>
+                    в инфо канал! Здесь ты можешь найти..
+                </p>
+                <div class="quote-mark">,,</div>
+            </div>
+
+            <!-- Список разделов -->
+            <div class="sections-list">
+                <a href="#" class="section-item">
+                    <span class="section-icon">&#9670;</span>
+                    <span class="section-text">Краш лист</span>
+                    <span class="section-arrow">→</span>
+                </a>
+                <a href="#" class="section-item">
+                    <span class="section-icon">&#9670;</span>
+                    <span class="section-text">Союзы и правила</span>
+                    <span class="section-arrow">→</span>
+                </a>
+                <a href="#" class="section-item">
+                    <span class="section-icon">&#9670;</span>
+                    <span class="section-text">Прайс</span>
+                    <span class="section-arrow">→</span>
+                </a>
+                <a href="#" class="section-item">
+                    <span class="section-icon">&#9670;</span>
+                    <span class="section-text">Админы</span>
+                    <span class="section-arrow">→</span>
+                </a>
+            </div>
+
+            <!-- Статистика -->
+            <div class="stats-line">
+                <span class="stat-sep">|</span>
+                <span class="stat-item">изменено 14:18</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="cad-footer">
+        <a href="../channels.html" class="back-arrow">← к итогам интерактива</a>
+        <span class="footer-ornament">&#9670;</span>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.cad-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(15px)';
+        
+        requestAnimationFrame(() => {
+            container.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                this.style.transform = 'scale(0.92)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+            });
+        });
+
+        const card = document.querySelector('.content-card');
+        if (card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+    });
+</script>
+</body>
+</html>

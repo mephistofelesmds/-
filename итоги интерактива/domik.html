@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Domik Di | Солнечный сериал</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_domik.css">
+</head>
+<body>
+
+<div class="domik-container">
+    <!-- Декоративные уголки -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <header class="domik-header">
+        <div class="header-top">
+            <div class="avatar-frame">
+                <img src="../images/domik_avatar.jpg" alt="Domik Di" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-fallback').style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">D</div>
+                <!-- Солнечные лучи -->
+                <div class="sun-rays">
+                    <span class="ray ray-1"></span>
+                    <span class="ray ray-2"></span>
+                    <span class="ray ray-3"></span>
+                    <span class="ray ray-4"></span>
+                    <span class="ray ray-5"></span>
+                    <span class="ray ray-6"></span>
+                    <span class="ray ray-7"></span>
+                    <span class="ray ray-8"></span>
+                </div>
+            </div>
+            <div class="title-block">
+                <h1>Domik Di</h1>
+                <span class="subtitle">Солнечный канал</span>
+                <div class="divider-ornament">~ ~ ~</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="domik-nav">
+        <a href="#" class="nav-link active">Navigation</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Персонаж</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Пикча</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Обработка</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Видео</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Сериал</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Лота</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Локация</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Музыка</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Почему</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Практика</a>
+    </nav>
+
+    <main class="domik-content">
+        <div class="content-card">
+            <h2 class="card-title">Navigation</h2>
+            
+            <!-- Блок с объявлением -->
+            <div class="announcement-block">
+                <p>
+                    <strong>Я делаю сериал и мне очень нужны люди, которые захотят мне помочь!</strong>
+                </p>
+                <div class="quote-mark">>></div>
+            </div>
+
+            <!-- Блок с ссылками -->
+            <div class="links-block">
+                <div class="link-row">
+                    <span class="row-label">Вп</span>
+                    <span class="row-value">10+ под.</span>
+                </div>
+            </div>
+
+            <!-- Облако тегов -->
+            <div class="tags-section">
+                <h3>Тег поиска:</h3>
+                <div class="tags-cloud">
+                    <a href="#" class="tag">#персонаж</a>
+                    <a href="#" class="tag">#пикча</a>
+                    <a href="#" class="tag">#обработка</a>
+                    <a href="#" class="tag">#видео</a>
+                    <a href="#" class="tag">#сериал</a>
+                    <a href="#" class="tag">#лота</a>
+                    <a href="#" class="tag">#локация</a>
+                    <a href="#" class="tag">#музыка</a>
+                    <a href="#" class="tag">#почему</a>
+                    <a href="#" class="tag">#практика</a>
+                </div>
+            </div>
+
+            <!-- Подпись -->
+            <div class="signature-block">
+                <span class="signature-text">Солнечный сериал</span>
+                <span class="signature-ornament">~</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="domik-footer">
+        <a href="../channels.html" class="back-arrow">← к итогам интерактива</a>
+        <span class="footer-ornament">~</span>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.domik-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(15px)';
+        
+        requestAnimationFrame(() => {
+            container.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                this.style.transform = 'scale(0.92)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+            });
+        });
+
+        const card = document.querySelector('.content-card');
+        if (card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+    });
+</script>
+</body>
+</html>

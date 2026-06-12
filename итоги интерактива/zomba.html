@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>ZombaPORT | Портфолио</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_zomba.css">
+</head>
+<body>
+
+<div class="zomba-container">
+    <!-- Декоративные уголки -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Пульсирующий контур -->
+    <div class="pulse-border"></div>
+
+    <header class="zomba-header">
+        <div class="header-top">
+            <div class="avatar-frame">
+                <img src="../images/zomba_avatar.jpg" alt="Zomba" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-fallback').style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">Z</div>
+            </div>
+            <div class="title-block">
+                <h1>Port Zomba</h1>
+                <span class="subtitle">I can't keep on waiting for you</span>
+                <div class="divider-ornament">⥊ ⥋ ⥊</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="zomba-nav">
+        <a href="#" class="nav-link active">Navigation</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Price list</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Admins</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">VP post</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Union</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Marriage</a>
+        <span class="nav-sep">|</span>
+        <a href="#" class="nav-link">Love list</a>
+    </nav>
+
+    <main class="zomba-content">
+        <div class="content-card">
+            <h2 class="card-title">Navigation</h2>
+            
+            <!-- Приветственный блок -->
+            <div class="greeting-block">
+                <div class="quote-left">,,</div>
+                <p>
+                    Приветствую. Я зомба — начинающий дизайнер.<br>
+                    В сфере дизайна около 2х лет. Делаю баннеры,<br>
+                    аватарки и видео на заказ. Подробнее вы можете<br>
+                    ознакомиться по ссылкам ниже. Подписывайтесь и<br>
+                    следите за моим творчеством!
+                </p>
+                <div class="quote-right">"</div>
+            </div>
+
+            <!-- Сетка ссылок -->
+            <div class="links-grid">
+                <a href="#" class="link-card">
+                    <span class="link-label">price list</span>
+                    <span class="link-arrow">↛</span>
+                </a>
+                <a href="#" class="link-card">
+                    <span class="link-label">admins</span>
+                    <span class="link-arrow">↛</span>
+                </a>
+                <a href="#" class="link-card">
+                    <span class="link-label">VP post</span><sup>20</sup>
+                    <span class="link-sep">|</span>
+                    <span class="link-label">union</span><sup>10</sup>
+                </a>
+                <a href="#" class="link-card">
+                    <span class="link-label">marriage</span>
+                    <span class="link-sep">|</span>
+                    <span class="link-label">Love list</span>
+                </a>
+            </div>
+
+            <!-- Подпись -->
+            <div class="signature-block">
+                <span class="signature-text">Дизайнер</span>
+                <span class="signature-ornament">&#9671;</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="zomba-footer">
+        <a href="../channels.html" class="back-arrow">← к итогам интерактива</a>
+        <span class="footer-ornament">&#9671;</span>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.zomba-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(15px)';
+        
+        requestAnimationFrame(() => {
+            container.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                this.style.transform = 'scale(0.92)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+            });
+        });
+
+        const card = document.querySelector('.content-card');
+        if (card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+    });
+</script>
+</body>
+</html>

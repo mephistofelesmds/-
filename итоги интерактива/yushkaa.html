@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Yushkaa_01 | Винтажный архив</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_yushkaa.css">
+</head>
+<body>
+
+<div class="vintage-container">
+    <!-- Декоративные уголки -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <header class="vintage-header">
+        <div class="header-top">
+            <div class="avatar-frame">
+                <img src="images/yushkaa_avatar.jpg" alt="Yushkaa" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-fallback').style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">Ю</div>
+            </div>
+            <div class="title-block">
+                <h1>Yushkaa_01</h1>
+                <span class="subtitle">Винтажный архив</span>
+                <div class="divider-ornament">✦ ✦ ✦</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="vintage-nav">
+        <a href="#" class="nav-link active">Tags</a>
+        <span class="nav-sep">•</span>
+        <a href="#" class="nav-link">Boost</a>
+        <span class="nav-sep">•</span>
+        <a href="#" class="nav-link">Price</a>
+        <span class="nav-sep">•</span>
+        <a href="#" class="nav-link">Mew post</a>
+        <span class="nav-sep">•</span>
+        <a href="#" class="nav-link">Anon</a>
+        <span class="nav-sep">•</span>
+        <a href="#" class="nav-link">Information</a>
+        <span class="nav-sep">•</span>
+        <a href="#" class="nav-link">Administration</a>
+    </nav>
+
+    <main class="vintage-content">
+        <div class="content-card">
+            <h2 class="card-title">⋆｡°✩ Navigation</h2>
+            
+            <!-- Винтажный блок с текстом -->
+            <div class="nav-block">
+                <p class="nav-item">
+                    <span class="nav-label">Tags</span> — эстетика, арт, иллюстрации
+                </p>
+                <p class="nav-item">
+                    <span class="nav-label">Boost</span> — репосты и продвижение
+                </p>
+                <p class="nav-item">
+                    <span class="nav-label">Price</span> — прайс на заказы
+                </p>
+                <p class="nav-item">
+                    <span class="nav-label">Mew post</span> — новые посты
+                </p>
+                <p class="nav-item">
+                    <span class="nav-label">Anon</span> — анонимные вопросы
+                </p>
+                <p class="nav-item">
+                    <span class="nav-label">Information</span> — о канале
+                </p>
+                <p class="nav-item">
+                    <span class="nav-label">Administration</span> — админы
+                </p>
+            </div>
+
+            <!-- Галерея -->
+            <div class="gallery-section">
+                <div class="gallery-frame">
+                    <img src="images/fan1.jpg" alt="Веер" onerror="this.parentElement.style.display='none';">
+                </div>
+            </div>
+
+            <!-- Подпись -->
+            <div class="signature-block">
+                <span class="signature-text">Ручной археолог</span>
+                <span class="signature-ornament">⚜</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="vintage-footer">
+        <a href="../channels.html" class="back-arrow">← к итогам интерактива</a>
+        <span class="footer-ornament">✧</span>
+    </footer>
+</div>
+
+<script>
+    // Анимация появления при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.vintage-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(15px)';
+        
+        requestAnimationFrame(() => {
+            container.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        });
+
+        // Интерактивность навигации
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Эффект при клике
+                this.style.transform = 'scale(0.92)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Эффект при наведении на карточку
+        const card = document.querySelector('.content-card');
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+</script>
+</body>
+</html>

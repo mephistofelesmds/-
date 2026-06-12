@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Cat and Book | Кайа</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_catandcook.css">
+</head>
+<body>
+
+<div class="cat-container">
+    <!-- Декоративные уголки -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <header class="cat-header">
+        <div class="header-top">
+            <div class="avatar-frame">
+                <img src="images/cat_avatar.jpg" alt="Кайа" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-fallback').style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">K</div>
+            </div>
+            <div class="title-block">
+                <h1>Cat and Book</h1>
+                <span class="subtitle">кот и пряник</span>
+                <div class="divider-ornament">~ ~ ~</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="cat-nav">
+        <a href="#" class="nav-link active">Navigation</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Unions</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Interactives</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Pr post</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Crash list</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Anon</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">Archive</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">All interviews</a>
+        <span class="nav-sep">-</span>
+        <a href="#" class="nav-link">All podcasts</a>
+    </nav>
+
+    <main class="cat-content">
+        <div class="content-card">
+            <!-- Кошачьи следы -->
+            <div class="paw-prints">
+                <span class="paw paw-1"></span>
+                <span class="paw paw-2"></span>
+                <span class="paw paw-3"></span>
+                <span class="paw paw-4"></span>
+            </div>
+
+            <h2 class="card-title">You are welcome!</h2>
+            
+            <!-- Блок с цитатой -->
+            <div class="quote-block">
+                <div class="quote-text">
+                    <span class="char-name">Кайа</span>
+                    <span class="question">— скала или море?</span>
+                </div>
+                <div class="quote-mark">,,</div>
+            </div>
+
+            <!-- Информация о персонаже -->
+            <div class="person-info">
+                <div class="info-line">
+                    <span class="info-sep">//</span>
+                    <span class="info-value">intp 9w8</span>
+                    <span class="info-sep">//</span>
+                    <span class="info-icon cat-icon">=^._.^=</span>
+                    <span class="info-sep">/</span>
+                    <span class="info-icon cat-icon">=^._.^=</span>
+                    <span class="info-sep">//</span>
+                </div>
+                <div class="info-line">
+                    <span class="info-sep">//</span>
+                    <span class="info-value">фикрайдер</span>
+                    <span class="info-sep">//</span>
+                    <span class="info-value">интервьюер</span>
+                    <span class="info-sep">//</span>
+                    <span class="info-value">диз. стик</span>
+                    <span class="info-sep">//</span>
+                </div>
+            </div>
+
+            <!-- Облако тегов -->
+            <div class="tags-section">
+                <div class="tags-cloud">
+                    <a href="#" class="tag">#инфопост</a>
+                    <a href="#" class="tag">#союз</a>
+                    <a href="#" class="tag">#репост</a>
+                    <a href="#" class="tag">#важно</a>
+                    <a href="#" class="tag">#фанфик</a>
+                    <a href="#" class="tag">#зарисовка</a>
+                    <a href="#" class="tag">#интерактив</a>
+                    <a href="#" class="tag">#работа</a>
+                    <a href="#" class="tag">#щп</a>
+                    <a href="#" class="tag">#подкаст</a>
+                    <a href="#" class="tag">#мем</a>
+                    <a href="#" class="tag">#интервью</a>
+                    <a href="#" class="tag">#стикеры</a>
+                    <a href="#" class="tag">#хэд</a>
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div class="stats-line">
+                <span class="stat-sep">~</span>
+                <span class="stat-item">Cat and Book</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="cat-footer">
+        <a href="../channels.html" class="back-arrow">← к итогам интерактива</a>
+        <span class="footer-ornament">~</span>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.cat-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(15px)';
+        
+        requestAnimationFrame(() => {
+            container.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                this.style.transform = 'scale(0.92)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+            });
+        });
+
+        const card = document.querySelector('.content-card');
+        if (card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+    });
+</script>
+</body>
+</html>

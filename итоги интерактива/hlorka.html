@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>HAYNIK | Тёмная эстетика</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_hlorka.css">
+</head>
+<body>
+
+<div class="hlorka-container">
+    <!-- Декоративные уголки -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <header class="hlorka-header">
+        <div class="header-top">
+            <div class="avatar-frame">
+                <img src="../images/hlorka_avatar.jpg" alt="HAYNIK" onerror="this.style.display='none'; this.parentElement.querySelector('.avatar-fallback').style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">H</div>
+            </div>
+            <div class="title-block">
+                <h1>HAYNIK</h1>
+                <span class="subtitle">#КайЛиш #ЛиХлор</span>
+                <div class="divider-ornament">&#9670; &#9670; &#9670;</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="hlorka-nav">
+        <a href="#" class="nav-link active">Navigation</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Unions</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Reviews</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Love list</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Thanks</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Mutual Piар</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Info</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Archive</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Boost</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Bot</a>
+        <span class="nav-sep">/</span>
+        <a href="#" class="nav-link">Owner</a>
+    </nav>
+
+    <main class="hlorka-content">
+        <div class="content-card">
+            <!-- Нити мицелия -->
+            <div class="mycelium-threads">
+                <span class="thread thread-t"></span>
+                <span class="thread thread-r"></span>
+                <span class="thread thread-b"></span>
+                <span class="thread thread-l"></span>
+                <span class="thread thread-tr"></span>
+                <span class="thread thread-bl"></span>
+            </div>
+
+            <h2 class="card-title">Welcome</h2>
+            
+            <!-- Научный блок про лишайники -->
+            <div class="symbiotic-block">
+                <p>
+                    Лишайники — симбиотические организмы, состоящие из гриба и водоросли, иногда также цианобактерий.
+                </p>
+                <div class="symbiotic-spores">
+                    <span class="spore"></span>
+                    <span class="spore"></span>
+                    <span class="spore"></span>
+                </div>
+            </div>
+
+            <!-- Блок "Важное" -->
+            <div class="info-block important">
+                <div class="block-header">
+                    <span class="header-ornament">&#9670;</span>
+                    <span class="block-title">Важное ::</span>
+                </div>
+                <div class="block-content">
+                    <div class="block-row">
+                        <span class="item-link">Unions.</span>
+                        <span class="item-link">Reviews</span>
+                        <span class="item-sep">//</span>
+                        <span class="item-link">Love list</span>
+                        <span class="item-icon">&#9632;</span>
+                    </div>
+                    <div class="block-row">
+                        <span class="item-link">Thanks</span>
+                        <span class="item-sep">||</span>
+                        <span class="item-link">Mutual Piар</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок "Остальное" -->
+            <div class="info-block other">
+                <div class="block-header">
+                    <span class="header-ornament">&#9670;</span>
+                    <span class="block-title">Остальное ::</span>
+                </div>
+                <div class="block-content">
+                    <div class="block-row">
+                        <span class="item-link">info</span>
+                        <span class="item-num">3</span>
+                        <span class="item-link">archive</span>
+                    </div>
+                    <div class="block-row">
+                        <span class="item-icon">&#9632;</span>
+                        <span class="item-link">boost, bot</span>
+                        <span class="item-icon">&#8968;</span>
+                        <span class="item-link">owner</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Подпись -->
+            <div class="signature-block">
+                <span class="signature-tag">#КайЛиш</span>
+                <span class="signature-sep">&#9670;</span>
+                <span class="signature-tag">#ЛиХлор</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="hlorka-footer">
+        <a href="../channels.html" class="back-arrow">← к итогам интерактива</a>
+        <span class="footer-ornament">&#9670;</span>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.hlorka-container');
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(15px)';
+        
+        requestAnimationFrame(() => {
+            container.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                this.style.transform = 'scale(0.92)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+            });
+        });
+
+        const card = document.querySelector('.content-card');
+        if (card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+
+        // Лёгкое движение спор при скролле
+        const spores = document.querySelectorAll('.spore');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            spores.forEach((spore, i) => {
+                const speed = 0.02 + (i * 0.01);
+                spore.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
+    });
+</script>
+</body>
+</html>
