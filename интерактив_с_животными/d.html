@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Карточка канала · Животные</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('images/фон.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #0f0e11;
+            font-family: 'Georgia', 'Times New Roman', 'Book Antiqua', serif;
+            min-height: 100vh;
+            color: #d9d4dd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 14, 17, 0.7);
+            z-index: 0;
+        }
+
+        body>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        :root {
+            --bg-card: rgba(22, 21, 26, 0.7);
+            --border-light: #2b2733;
+            --text-primary: #e0d9e8;
+            --text-secondary: #9d91af;
+            --accent-violet: #6d5b88;
+            --accent-green: #6e8d5f;
+            --glow-purple: rgba(109, 91, 136, 0.6);
+        }
+
+        .page-container {
+            max-width: 700px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 2rem 2.5rem;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(60, 50, 80, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            border-radius: 1.8rem;
+            backdrop-filter: blur(3px);
+            animation: containerGlow 1.2s ease-out;
+            min-height: auto;
+        }
+
+        @keyframes containerGlow {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Заголовок сайта */
+        .site-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 2px solid rgba(37, 34, 43, 0.8);
+            padding-bottom: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #d4c8e6;
+            line-height: 1.1;
+            transition: text-shadow 0.3s ease, transform 0.2s;
+            display: inline-block;
+        }
+
+        .logo h1:hover {
+            text-shadow: 0 0 8px rgba(212, 200, 230, 0.6);
+            transform: scale(1.01);
+        }
+
+        .logo .accent-dot {
+            color: #b38ed1;
+            font-size: 2.5rem;
+            transition: color 0.2s;
+        }
+
+        .logo .sub {
+            font-size: 0.85rem;
+            color: #9d91af;
+            margin-top: 0.1rem;
+            font-style: italic;
+            letter-spacing: 0.4px;
+            opacity: 0.9;
+        }
+
+        .author-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: rgba(28, 26, 33, 0.6);
+            padding: 0.5rem 1.3rem;
+            border-radius: 2.5rem;
+            color: #beb1d0;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid #342e3f;
+            transition: all 0.25s ease;
+        }
+
+        .author-badge:hover {
+            border-color: #8c79aa;
+            background: rgba(40, 37, 48, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Карточка канала */
+        .channel-card {
+            background-color: rgba(24, 23, 30, 0.7);
+            border-radius: 1.4rem;
+            padding: 1.8rem;
+            border: 1px solid #8764a3;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            transition: all 0.3s ease;
+            animation: gentleAppear 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .channel-card:hover {
+            border-color: #b898e0;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(160, 130, 210, 0.2);
+            transform: translateY(-4px);
+            background: rgba(30, 28, 38, 0.8);
+        }
+
+        @keyframes gentleAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Верхний ряд: аватарка + название канала */
+        .channel-header {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+        }
+
+        .channel-avatar {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fcd34d, #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+            flex-shrink: 0;
+            color: #7c2d12;
+            transition: all 0.3s ease;
+        }
+
+        .channel-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px rgba(245, 158, 11, 0.6);
+        }
+
+        .channel-name-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .channel-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4c8e6;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .channel-card:hover .channel-name {
+            color: #ecdfff;
+            text-shadow: 0 0 6px rgba(180, 150, 220, 0.5);
+        }
+
+        .channel-sub {
+            font-size: 0.85rem;
+            color: #b38ed1;
+            font-style: italic;
+        }
+
+        /* Средний ряд: фото животного + факт */
+        .animal-row {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            background: rgba(15, 14, 20, 0.5);
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(135, 100, 163, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .animal-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 1.5rem;
+            background: #d4b68a;
+
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .fact-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .fact-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: #a997b8;
+            transition: color 0.2s;
+        }
+
+        .fact-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #d4c8e6;
+            background: rgba(30, 28, 38, 0.6);
+            padding: 0.8rem 1.2rem;
+            border-radius: 1rem;
+            border: 1px dashed #6d5b88;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .channel-card:hover .fact-text {
+            border-color: #b898e0;
+            background: rgba(40, 37, 48, 0.7);
+            color: #ecdfff;
+        }
+
+        /* Нижний ряд: цветовая палитра */
+        .palette-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(24, 23, 30, 0.5);
+            border-radius: 1.2rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(135, 100, 163, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .palette-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #d4c8e6;
+            font-size: 0.95rem;
+            letter-spacing: 0.4px;
+        }
+
+        .palette-label span {
+            font-size: 1.2rem;
+        }
+
+        .colors-row {
+            display: flex;
+            gap: 0.9rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .color-chip {
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.2);
+            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .color-chip:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(180, 150, 220, 0.4);
+            border-color: #d4c8e6;
+        }
+
+        /* Футер */
+        .footer-note {
+            text-align: center;
+            color: #5c4f6d;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(34, 32, 42, 0.6);
+            padding-top: 1.2rem;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+        }
+
+        .footer-note:hover {
+            color: #9081a3;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            .page-container {
+                padding: 1.5rem;
+            }
+            .channel-name {
+                font-size: 1.4rem;
+            }
+            .channel-avatar {
+                width: 3.8rem;
+                height: 3.8rem;
+                font-size: 2rem;
+            }
+            .animal-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .animal-photo {
+                width: 90px;
+                height: 90px;
+            }
+            .palette-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+
+        <!-- Заголовок -->
+        <header class="site-header">
+            <div class="logo">
+                <h1>Ди<span class="accent-dot">.</span></h1>
+               
+            </div>
+            <div class="author-badge">
+                &mdash; <span>Мефисто</span> (автор)
+            </div>
+        </header>
+
+        <div class="channel-card">
+           
+            <div class="channel-header">
+                <div class="channel-name-section">
+                    <div class="channel-name">Красная панда</div>
+                </div>
+            </div>
+            <div class="animal-row">
+            <img src="images/ди.jpg" 
+                 alt=" " 
+                 class="animal-photo"
+                 style="object-fit: cover; width: 120px; height: 120px; border-radius: 1.5rem;">
+                <div class="fact-section">
+                    <div class="fact-label">интересный факт</div>
+                    <div class="fact-text">
+                        Несмотря на грозную классификацию, 95% ее рациона составляет бамбук, а сама она размером не больше домашней кошки..
+                    </div>
+                </div>
+            </div>
+
+            <!-- Цветовая палитра -->
+            <div class="palette-section">
+                <div class="palette-label">
+                   Палитра канала
+                </div>
+                <div class="colors-row">
+                    <div class="color-chip" style="background: #f9c99a;" title="#f9c99a"></div>
+                    <div class="color-chip" style="background: #fae8d5;" title="#fae8d5"></div>
+                    <div class="color-chip" style="background: #c75442;" title="#c75442"></div>
+                    <div class="color-chip" style="background: #49322c;" title="#49322c"></div>
+                    <div class="color-chip" style="background: #faacb4;" title="#faacb4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

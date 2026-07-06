@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>интерактив — Фанфики Мефа</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+
+        <header class="site-header">
+            <div class="logo">
+                <h1>Фанфики Мефа<span class="accent-dot">.</span></h1>
+            </div>
+            <div class="author-badge">
+                &mdash; <span>Мефисто</span> (автор)
+            </div>
+        </header>
+
+        <div class="channels-intro">
+            <h2>Итоги интерактива</h2>
+            <p>извините, но мне было лень всавлять аватарки..</p>
+        </div>
+
+        <div class="channels-grid" id="channelsGrid">
+            <!-- Каналы будут добавлены через JavaScript для анимации -->
+        </div>
+
+        <a href="../index.html" class="back-link">
+            ← назад в библиотеку
+        </a>
+    </div>
+
+    <script>
+        // Данные о 10 каналах
+        const channels = [{
+            name: "Бинхэ",
+            handle: "@BinghePort",
+            desc: " ",
+            avatar: "",
+            initials: "Б",
+            file: "bb.html",
+            color: "#c5c76f",
+        }, {
+            name: "Юшка",
+            handle: "@Yushkaa_01",
+            desc: " ",
+            avatar: "",
+            initials: "Ю",
+            file: "yu.html",
+            color: "#a1a19f",
+        }, {
+            name: "Юань",
+            handle: "@Yuan_Basement",
+            desc: " ",
+            avatar: "",
+            initials: "Ю",
+            file: "yuu.html",
+            color: "#f1ff94",
+        }, {
+            name: "Ди",
+            handle: "@domikudi",
+            desc: " ",
+            avatar: "",
+            initials: "Д",
+            file: "d.html",
+            color: "#ebcd3b",
+        }, {
+            name: "Ри",
+            handle: "@PortRi1",
+            desc: " ",
+            avatar: "",
+            initials: "Р",
+            file: "r.html",
+            color: "#ffa1d9",
+        }, {
+            name: "Хади (?)",
+            handle: "@khadi_pivo",
+            desc: " ",
+            avatar: "",
+            initials: "Х",
+            file: "hh.html",
+            color: "#457d62",
+        }, {
+            name: "Чашицу",
+            handle: "@chashitsupaww",
+            desc: " ",
+            avatar: "",
+            initials: "Ч",
+            file: "ch.html",
+            color: "#d6ceb0", 
+        }, {
+            name: "Гуашко",
+            handle: "@PortfolioGuashko",
+            desc: " ",
+            avatar: "",
+            initials: "Г",
+            file: "g.html",
+            color: "#104237", 
+        }, {
+            name: "Ликокисс",
+            handle: "@likokiss_was_here",
+            desc: " ",
+            avatar: "",
+            initials: "С",
+            file: "lik.html",
+            color: "#faecc8", 
+        }, {
+            name: "Мавалур",
+            handle: "@ChoiceOfJourney",
+            desc: " ",
+            avatar: "",
+            initials: "Э",
+            file: "maw.html",
+            color: "#eaff96", 
+        }, {
+            name: "Момо",
+            handle: "@CADCircei",
+            desc: " ",
+            avatar: "",
+            initials: "М",
+            file: "mo.html",
+            color: "#3c4441", 
+        }];
+
+        const grid = document.getElementById('channelsGrid');
+
+        // Функция создания ripple эффекта
+        function addRippleEffect(event, element) {
+            const rect = element.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            ripple.classList.add('click-ripple');
+            ripple.style.position = 'absolute';
+            ripple.style.pointerEvents = 'none';
+            element.style.position = 'relative';
+            element.style.overflow = 'hidden';
+            element.appendChild(ripple);
+            setTimeout(() => {
+                ripple.remove();
+                element.style.overflow = '';
+            }, 500);
+        }
+
+        // Создание карточки канала
+        function createChannelCard(channel, index) {
+            const card = document.createElement('a');
+            card.className = 'channel-card';
+            card.href = channel.file;
+            card.style.animation = `cardFloatIn 0.5s ease-out ${index * 0.08}s forwards`;
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(12px)';
+
+            const avatarHTML = channel.avatar
+                ? `<img src="${channel.avatar}" alt="${channel.name}" class="channel-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="background: linear-gradient(135deg, ${channel.color || '#6d5b88'}, #4a3d5c);">`
+                : '';
+            const placeholderHTML = channel.avatar
+                ? `<div class="channel-avatar-placeholder" style="display:none; background: linear-gradient(135deg, ${channel.color || '#6d5b88'}, #4a3d5c);">${channel.initials}</div>`
+                : `<div class="channel-avatar-placeholder" style="background: linear-gradient(135deg, ${channel.color || '#6d5b88'}, #4a3d5c);">${channel.initials}</div>`;
+
+            const tagsHTML = channel.tags && channel.tags.length > 0
+                ? `<div class="channel-tags">${channel.tags.map(tag => `<span class="channel-tag">${tag}</span>`).join('')}</div>`
+                : '';
+
+            card.innerHTML = `
+                ${avatarHTML}
+                ${placeholderHTML}
+                <div class="channel-info">
+                    <div class="channel-name">
+                        ${channel.name}
+                        <span class="channel-handle">${channel.handle}</span>
+                    </div>
+                    <div class="channel-desc">
+                        ${channel.desc}
+                    </div>
+                    ${tagsHTML}
+                </div>
+                <div class="channel-arrow">→</div>
+            `;
+
+            card.addEventListener('click', function(e) {
+                addRippleEffect(e, card);
+            });
+
+            return card;
+        }
+
+        // Рендер карточек
+        function renderChannels() {
+            channels.forEach((channel, index) => {
+                const card = createChannelCard(channel, index);
+                grid.appendChild(card);
+            });
+
+            const cards = grid.querySelectorAll('.channel-card');
+            cards.forEach((card, i) => {
+                card.style.animation = 'none';
+                card.offsetHeight;
+                card.style.animation = `cardFloatIn 0.5s ease-out ${i * 0.08}s forwards`;
+            });
+        }
+
+        // Запуск
+        renderChannels();
+    </script>
+</body>
+</html>
