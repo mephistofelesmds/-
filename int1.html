@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Интервью от Мефа</title>
+  <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-image: url('images/фон.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-color: #f7e3c3;
+        font-family: 'Trebuchet MS', 'Comic Sans MS', 'Segoe UI', sans-serif;
+        min-height: 100vh;
+        color: #3d2b1f;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+        position: relative;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(247, 227, 195, 0.3);
+        z-index: 0;
+      }
+
+      body > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .page-container {
+        max-width: 950px;
+        width: 100%;
+        background-color: rgba(255, 235, 200, 0.85);
+        padding: 1.5rem 2.5rem;
+        box-shadow: 0 4px 20px rgba(180, 90, 30, 0.25), 0 0 0 2px #ffb347;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: 2.5rem 2.5rem 1rem 1rem;
+        backdrop-filter: blur(4px);
+        animation: containerGlow 1.2s ease-out;
+        min-height: 80vh;
+        border: 4px solid #ff8c42;
+        position: relative;
+      }
+
+      @keyframes containerGlow {
+        0% {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+          filter: blur(2px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+      }
+
+      /* Летающие головы по бокам */
+      .floating-heads {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: visible;
+        z-index: 2;
+      }
+
+      .head {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        animation: float 4s ease-in-out infinite alternate;
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+      }
+
+      .head-host {
+        background-image: url('images/ведущий.png');
+        top: 20%;
+        left: -30px;
+        animation-delay: 0s;
+      }
+
+      .head-guest {
+        background-image: url('images/гость1.png');
+        top: 60%;
+        right: -30px;
+        animation-delay: 1.5s;
+      }
+
+      @keyframes float {
+        0% { transform: translateY(0px) rotate(-4deg) scale(1); }
+        100% { transform: translateY(-20px) rotate(4deg) scale(1.05); }
+      }
+
+      @media (max-width: 700px) {
+        .head {
+          width: 50px;
+          height: 50px;
+        }
+        .head-host {
+          left: -20px;
+          top: 15%;
+        }
+        .head-guest {
+          right: -20px;
+          top: 70%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .head {
+          width: 40px;
+          height: 40px;
+        }
+        .head-host {
+          left: -12px;
+          top: 10%;
+        }
+        .head-guest {
+          right: -12px;
+          top: 75%;
+        }
+      }
+
+      .site-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: 3px dashed #ff8c42;
+        padding-bottom: 0.9rem;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 3;
+      }
+
+      .logo h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #d95f1e;
+        line-height: 1.1;
+        transition: text-shadow 0.3s ease, transform 0.2s;
+        display: inline-block;
+        text-shadow: 3px 3px 0 #ffc285;
+      }
+
+      .logo .accent-dot {
+        color: #d95f1e;
+        font-size: 2.8rem;
+      }
+
+      .logo .sub {
+        font-size: 0.9rem;
+        color: #b35e2b;
+        margin-top: 0.1rem;
+        font-style: italic;
+        letter-spacing: 0.4px;
+        opacity: 0.9;
+      }
+
+      .author-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background-color: #ffdbb5;
+        padding: 0.5rem 1.3rem;
+        border-radius: 2.5rem;
+        color: #7a3e1a;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.25s ease;
+      }
+
+      .interview-section {
+        background-color: rgba(255, 225, 175, 0.7);
+        border-radius: 2rem;
+        padding: 1rem 2rem;
+        border: 3px solid #ff8c42;
+        transition: all 0.3s ease;
+        animation: gentleAppear 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: relative;
+        z-index: 3;
+      }
+
+      @keyframes gentleAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0.97);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .interview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: rem;
+        border-bottom: 2px solid #ff8c42;
+      }
+
+      .interview-header h2 {
+        color: #d95f1e;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 0 #ffc285;
+      }
+
+      .pair-counter {
+        background: #d95f1e;
+        color: #fff2d7;
+        padding: 0.2rem 1rem;
+        border-radius: 40px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        border: 2px solid #ffb347;
+      }
+
+      .pair-display {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0.2rem 0;
+      }
+
+      .message-block {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .speaker-label {
+        font-weight: 700;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding: 0.2rem 0.8rem;
+        border-radius: 12px;
+        align-self: flex-start;
+        color: #3d2b1f;
+        border: 1px solid #b35e2b;
+      }
+
+      .host-label {
+        background: #ffb074;
+        color: #3d1f0c;
+      }
+
+      .guest-label {
+        background: #ff9f4a;
+        color: #3d1f0c;
+        align-self: flex-end;
+      }
+
+      .bubble {
+        padding: 0.7rem 1rem;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        word-break: break-word;
+        box-shadow: 0 3px 0 #b35e2b;
+        background: #fff6e5;
+        border: 2px solid #ff8c42;
+        color: #3d2b1f;
+        white-space: pre-wrap;
+        transition: 0.15s;
+      }
+
+      .host-bubble {
+        border-bottom-left-radius: 6px;
+        border-color: #d95f1e;
+        align-self: flex-start;
+        background: #ffdbb5;
+      }
+
+      .guest-bubble {
+        border-color: #d95f1e;
+        align-self: flex-end;
+        background: #ffc994;
+      }
+
+      .answer-block {
+        align-items: flex-end;
+      }
+
+      .final-message-block {
+        display: none;
+        flex-direction: column;
+        gap: 0.2rem;
+        margin-top: 0.3rem;
+        padding: 0.5rem 0;
+        border-top: 2px dashed #ff8c42;
+        animation: gentleAppear 0.6s ease;
+      }
+
+      .final-message-block.active {
+        display: flex;
+      }
+
+      .final-message-block .bubble {
+        align-self: center;
+        background: #ffc994;
+        border-color: #d95f1e;
+        text-align: center;
+        font-style: italic;
+        max-width: 90%;
+        box-shadow: 0 3px 0 #b35e2b;
+      }
+
+      .final-message-block .guest-label {
+        align-self: center;
+      }
+
+      .nav-arrows {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding-top: 0.4rem;
+        border-top: 2px dashed #ff8c42;
+      }
+
+      .arrow-btn {
+        flex: 1;
+        background: #ffdbb5;
+        border: 3px solid #ff8c42;
+        border-radius: 40px;
+        padding: 0.6rem 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #d95f1e;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 0 #b35e2b;
+        user-select: none;
+      }
+
+      .arrow-btn:active:not(:disabled) {
+        transform: scale(0.96);
+        background: #ffb074;
+        box-shadow: 0 2px 0 #b35e2b;
+      }
+
+      .arrow-btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+        box-shadow: none;
+        border-color: #b35e2b;
+      }
+
+      .arrow-btn span {
+        pointer-events: none;
+      }
+
+      .footer-note {
+        text-align: center;
+        color: #7a3e1a;
+        font-size: 0.8rem;
+        margin-top: 0.8rem;
+        border-top: 2px dashed #ff8c42;
+        padding-top: 1.2rem;
+        letter-spacing: 0.3px;
+      }
+
+      .footer-note:hover {
+        color: #d95f1e;
+      }
+
+      @media (max-width: 550px) {
+        .page-container {
+          padding: 1.2rem;
+        }
+        .logo h1 {
+          font-size: 1.8rem;
+        }
+        .interview-section {
+          padding: 1rem;
+        }
+        .bubble {
+          font-size: 0.85rem;
+          padding: 0.6rem 0.8rem;
+        }
+        .arrow-btn {
+          padding: 0.4rem 0;
+          font-size: 1rem;
+        }
+      }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <!-- Летающие головы по бокам -->
+    <div class="floating-heads">
+      <div class="head head-host" title="Ведущий"></div>
+      <div class="head head-guest" title="Гость"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="logo">
+        <h1>Интервью от Мефа<span class="accent-dot">.</span></h1>
+        <div class="sub">мефисто ✦ мавалур</div>
+      </div>
+      <div class="author-badge">
+        &mdash; <span>Мефисто</span> (ведущий)
+      </div>
+    </header>
+
+    <!-- Секция интервью -->
+    <div class="interview-section" id="interviewSection">
+      <div class="interview-header">
+        <h2>интервью</h2>
+        <span class="pair-counter" id="pairCounter">1 / 14</span>
+      </div>
+
+      <div class="pair-display" id="pairDisplay">
+        <!-- Вопрос (ведущий) -->
+        <div class="message-block question-block">
+          <div class="speaker-label host-label">Мефисто</div>
+          <div class="bubble host-bubble" id="questionText">
+            ...........
+          </div>
+        </div>
+
+        <!-- Ответ (гость) -->
+        <div class="message-block answer-block">
+          <div class="speaker-label guest-label">Мавалур</div>
+          <div class="bubble guest-bubble" id="answerText">
+         
+          </div>
+        </div>
+
+        <!-- Финальное сообщение (появляется после последней пары) -->
+        <div class="final-message-block" id="finalMessage">
+          <div class="speaker-label guest-label">Мавалур</div>
+          <div class="bubble guest-bubble">Было приятно ответить на все вопросы!</div>
+        </div>
+      </div>
+
+      <!-- стрелки перелистывания пар -->
+      <div class="nav-arrows">
+        <button class="arrow-btn left-arrow" id="prevPairBtn" disabled>
+          <span>◀</span>
+        </button>
+        <button class="arrow-btn right-arrow" id="nextPairBtn">
+          <span>▶</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Массив пар: вопрос-ответ
+    const dialoguePairs = [
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Приветствую вас! перед началом просьба представиться аудитории."
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "я Мавалур, занимаюсь написанием хэдканонов, интервью беру, режепишу обзоры."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "когда начали вести канал? собираетесь уходить или брать ресты?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Я начал чуть больше года назад, если брать конкретно этот проект, то около полу года назад. Нет, не планирую ничего подобного!"
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "чего хотите добиться в будущем на этом канале?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Хочу двести подписчиков добить, а дальше посмотрим"
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "На чем больше специализируетесь?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Обзор комьюнии, инервью комьюнити и хэдканон комьюнити"
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Мы заметили, что Вы больше делаее интервью и пишете зарисовки/хэдканоны. На этом будут стоиться наши дальнейшие вопросы. \nЕсть ли самое странное интервью? Если его нет, то есть интервью, из-за которого вам пришлось попотеть? может вам долго отвечали или ответы были слишком большими для оформления?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Самого странного нет... Над интервью Рини, но вы его уже не найтете, к сожелению (удалено вместе со старым каналом). Оно было на 3 лимита телеграмм."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Как вы придумаваете хэдканоны/зарисовки? Что вас подталкивает или вы просто на рандом пишите первую идею?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Я просто сажусь и пишу. Нет такого, что я что-то долго обдумываю и так далее. Мне с идеями часто помогают друзья, но иногда я и сам придумываю их."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Раньше вы были с маскотом Билла Шифра, а после стали Эллиотом. Вы изначально были Биллом или еще до него были кем-то? Если нет, то как вы пришли к самому Биллу, что вас подтолкнуло к этому персонажу; может вам нравился его характер или его внешность?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "С создания канала я был Биллом. Я ввёл в пинтерест 'желтый персонаж' и там был Билл. Вот так я к нему и пришёл."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Были ли моменты, когда вы отменяли интервью? Если нет, то было ли желание это сделать, каковы были причины?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Когда люди не отвечали долго, когда убирали вопросы, хотя формат, в котором нужно писать ответ, вставлен в шаблон интервью."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Вам сложно делать зарисовки/хэдканоны и интервью? Где начинается сложность?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Интервью легко, хэдканоны..тяжело заставить себя сесть за них."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Как вы относитесь к своим админам? Были ли затруднения когда-нибудь или может вам с ними наоборот легко?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Затруднения были когда они совсем не работали. А потом я чуть поговорил с ними и в целом сейчас все хорошо."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Вы изначально хотели сделать канал личным или уже планировали админов в своем канале?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Честно, не хотел я никогда админов на канале. Мне казалось что канал становится не моим, а сейчас я понимаю что админы очень помогают мне."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Какой у вас MBTI? Когда вы проходили тест или обратились к специалисту, как вы думали, какой он у вас до того, как узнали? Каковы были ваши ощущения: вы так и думали или не ожидали этого?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Я INFJ, думал что я ENFP. На самом деле именно свой тип личности я не ожидал от себя самого."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "У вас были конфликты с людьми? Не зависимо кмщик это или реальный человек в вашем окружении. Вы обычно решаете их мирно, агрессивно или уходите от них?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Чаще ухожу от конфликтов."
+        }
+      },
+      {
+        question: {
+          speaker: "Мефисто",
+          text: "Мы хаметили, по вашему каналу, что ваш любимый цвет жёлтый. Вам раньше нравились другие цвета? Если нет, то почему именно желтый, может он ассоциируется с чем-то любимым?"
+        },
+        answer: {
+          speaker: "Мавалур",
+          text: "Я люблю желтый и фиолетовый, это мои любимые цвета."
+        }
+      }
+    ];
+
+    let currentPairIndex = 0;
+
+    const questionText = document.getElementById('questionText');
+    const answerText = document.getElementById('answerText');
+    const pairCounter = document.getElementById('pairCounter');
+    const prevPairBtn = document.getElementById('prevPairBtn');
+    const nextPairBtn = document.getElementById('nextPairBtn');
+    const finalMessageBlock = document.getElementById('finalMessage');
+
+    const totalPairs = dialoguePairs.length;
+
+    function updatePair(index) {
+      if (index === totalPairs) {
+        questionText.parentElement.style.display = 'none';
+        answerText.parentElement.style.display = 'none';
+        finalMessageBlock.classList.add('active');
+        pairCounter.textContent = `Финал`;
+        prevPairBtn.disabled = false;
+        nextPairBtn.disabled = true;
+        nextPairBtn.style.opacity = '0.4';
+        prevPairBtn.style.opacity = '1';
+        return;
+      }
+
+      questionText.parentElement.style.display = 'flex';
+      answerText.parentElement.style.display = 'flex';
+      finalMessageBlock.classList.remove('active');
+
+      const pair = dialoguePairs[index];
+      questionText.textContent = pair.question.text;
+      answerText.textContent = pair.answer.text;
+      pairCounter.textContent = `${index + 1} / ${totalPairs}`;
+
+      prevPairBtn.disabled = (index === 0);
+      nextPairBtn.disabled = false;
+      prevPairBtn.style.opacity = prevPairBtn.disabled ? '0.4' : '1';
+      nextPairBtn.style.opacity = '1';
+    }
+
+    function goToPrevPair() {
+      if (currentPairIndex > 0) {
+        currentPairIndex--;
+        updatePair(currentPairIndex);
+      }
+    }
+
+    function goToNextPair() {
+      if (currentPairIndex === totalPairs) return;
+      if (currentPairIndex < totalPairs - 1) {
+        currentPairIndex++;
+        updatePair(currentPairIndex);
+      } else if (currentPairIndex === totalPairs - 1) {
+        currentPairIndex = totalPairs;
+        updatePair(currentPairIndex);
+      }
+    }
+
+    prevPairBtn.addEventListener('click', goToPrevPair);
+    nextPairBtn.addEventListener('click', goToNextPair);
+
+    let touchStartX = 0;
+    const pairDisplay = document.getElementById('pairDisplay');
+
+    pairDisplay.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    pairDisplay.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          if (currentPairIndex < totalPairs) {
+            goToNextPair();
+          }
+        } else {
+          if (currentPairIndex > 0) {
+            goToPrevPair();
+          }
+        }
+      }
+    });
+
+    updatePair(0);
+  </script>
+</body>
+</html>
