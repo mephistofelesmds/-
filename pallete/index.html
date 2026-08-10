@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Palette Generator · Mephisto</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chroma.js для работы с цветом -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+</head>
+<body>
+  <div class="page-container">
+
+    <header class="site-header">
+      <div class="logo">
+        <h1>Palette Generator</h1>
+        <div class="sub">by Mephisto · цветовая палитра</div>
+      </div>
+      <div class="author-badge">
+        <span>Mephisto</span> (автор)
+      </div>
+    </header>
+
+    <div class="welcome-banner" id="welcomeBanner">
+      <div class="welcome-text">
+        <h2>добро пожаловать</h2>
+        <div class="telegram-note">
+          <span>запретграм:</span> <a href="https://t.me/GreeenDeath" target="_blank" rel="noopener noreferrer">@GreeenDeath</a>
+        </div>
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="color-preview" id="colorPreview"></div>
+      <input type="text" id="colorInput" placeholder="#FF6B6B" maxlength="7" autocomplete="off" spellcheck="false">
+      <input type="color" id="colorPicker" value="#FF6B6B">
+      <button id="randomBtn">Random</button>
+    </div>
+
+    <!-- КОНТЕЙНЕР ПАЛИТР -->
+    <div id="palettes"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
