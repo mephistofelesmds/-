@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Death — Главы</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .chapters-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .chapter-tile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: rgba(24, 23, 30, 0.7);
+      border: 1px solid rgba(110, 90, 140, 0.4);
+      border-radius: 1rem;
+      padding: 0.9rem 1.4rem;
+      color: #d4c8e6;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+    }
+    .chapter-tile:hover {
+      background: rgba(60, 50, 80, 0.8);
+      border-color: #b898e0;
+      transform: translateX(4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+    .chapter-tile.read {
+      border-color: #6e8d5f;
+      background: rgba(30, 40, 25, 0.5);
+    }
+
+    .chapter-tile .num {
+      font-size: 1.1rem;
+      color: #b898e0;
+      font-weight: 700;
+      min-width: 90px;
+    }
+    .chapter-tile .name {
+      flex: 1;
+      font-size: 0.9rem;
+      color: #9d91af;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    @media (max-width: 480px) {
+      .chapter-tile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        padding: 0.8rem 1.1rem;
+      }
+      .chapter-tile .num { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <header class="site-header">
+      <div class="logo">
+        <h1>Green Death<span class="accent-dot">.</span></h1>
+        <div class="sub">список глав</div>
+      </div>
+      <div class="author-badge">
+        <a href="../../manhwa.html" class="custom-link">← все манхвы</a>
+      </div>
+    </header>
+
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h2>об этом комиксе</h2>
+        <p>Это комикс, который рассказывает основную вселенную. Пока я не успеваю сделать новеллу, а потому буду выпускать комикс.</p>
+        
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-label">главы</span>
+      <span style="color:#9d91af; font-size:0.85rem;">всего: 1</span>
+    </div>
+
+    <div class="chapters-grid" id="chaptersGrid"></div>
+
+    <div class="footer-note">новая глава — по мере готовности</div>
+  </div>
+
+  <script>
+    const chapters = [
+      { num: 1, file: "chapter1.html", title: "сон" },
+    ];
+    // ============================================================
+
+    const grid = document.getElementById('chaptersGrid');
+    const manhwaId = 'manhwa1';
+    const read = JSON.parse(localStorage.getItem('read_' + manhwaId) || '[]');
+
+    [...chapters].reverse().forEach(ch => {
+      const a = document.createElement('a');
+      a.className = 'chapter-tile' + (read.includes(ch.num) ? ' read' : '');
+      a.href = ch.file;
+      a.innerHTML = `
+        <span class="num">Глава ${ch.num}</span>
+        <span class="name">${ch.title}</span>
+      `;
+      grid.appendChild(a);
+    });
+  </script>
+</body>
+</html>

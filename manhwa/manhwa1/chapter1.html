@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Green Death — Глава 1</title>
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    body { padding: 0; background: #0a0a0d; }
+    body::before { display: none; }
+
+    .reader-top {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15, 14, 20, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(110, 90, 140, 0.4);
+      padding: 0.8rem 1.2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .reader-top a { color: #d4c8e6; text-decoration: none; font-size: 0.9rem; }
+    .reader-top a:hover { color: #b898e0; }
+    .chapter-title { color: #d4c8e6; font-weight: 600; font-size: 1rem; text-align: center; flex: 1; }
+    .chapter-nav { display: flex; gap: 0.5rem; }
+    .chapter-nav a {
+      padding: 0.4rem 1rem;
+      background: rgba(109, 91, 136, 0.5);
+      border-radius: 2rem;
+      border: 1px solid rgba(184, 152, 224, 0.5);
+      font-size: 0.85rem;
+    }
+    .chapter-nav a:hover { background: rgba(130, 110, 160, 0.8); }
+    .chapter-nav a.disabled { opacity: 0.3; pointer-events: none; }
+
+    .reader-container {
+      max-width: 900px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+      background: #0a0a0d;
+    }
+    .reader-container img {
+      width: 100%; max-width: 900px; height: auto; display: block;
+    }
+    .reader-container img + img { border-top: 0px solid rgba(0,0,0,0.8); }
+
+    .reader-bottom {
+      padding: 2rem 1rem; text-align: center; color: #5c4f6d; font-size: 0.85rem;
+    }
+    .reader-bottom a {
+      color: #b38ed1; text-decoration: none; display: inline-block;
+      margin-top: 0.5rem; padding: 0.6rem 1.6rem;
+      border: 1px solid #6d5b88; border-radius: 2rem; transition: all 0.25s;
+    }
+    .reader-bottom a:hover { background: rgba(109, 91, 136, 0.4); border-color: #b898e0; }
+
+    .scroll-top {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(109, 91, 136, 0.8);
+      border: 1px solid #b898e0; color: #d4c8e6;
+      font-size: 1.2rem; cursor: pointer;
+      display: none; align-items: center; justify-content: center;
+      z-index: 90;
+    }
+    .scroll-top.visible { display: flex; }
+  </style>
+</head>
+<body>
+
+  <div class="reader-top">
+    <a href="index.html">← к главам</a>
+    <div class="chapter-title" id="chapterTitle">Глава 1</div>
+    <div class="chapter-nav">
+      <a href="#" class="disabled">← пред.</a>
+      <a href="№" class="disabled">след. →</a>
+    </div>
+  </div>
+
+  <div class="reader-container" id="readerContainer"></div>
+
+  <div class="reader-bottom">
+    конец главы
+    <br>
+    <a href="index.html">← к списку глав</a>
+  </div>
+
+  <button class="scroll-top" id="scrollTop">↑</button>
+
+  <script>
+ 
+    const CHAPTER_NUM   = 1;              //номер главы
+    const TOTAL_PAGES   = 7;             //сколько картинок в папке
+    const FOLDER        = "pages/ch1/";   //папка с картинками этой главы
+  
+
+    const EXTENSION = "jpg";          
+
+    const container = document.getElementById('readerContainer');
+    const scrollTopBtn = document.getElementById('scrollTop');
+
+    document.title = "Green Death — Глава " + CHAPTER_NUM;
+    document.getElementById('chapterTitle').textContent = "Глава " + CHAPTER_NUM;
+
+    //картинки по порядку: 01.webp, 02.webp, 03.webp...
+    for (let i = 1; i <= TOTAL_PAGES; i++) {
+      const img = document.createElement('img');
+      const fileName = String(i).padStart(2, '0') + '.' + EXTENSION;
+      img.src = FOLDER + fileName;
+      img.alt = 'Страница ' + i;
+      img.loading = i <= 2 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.onerror = function() { this.style.display = 'none'; };
+      container.appendChild(img);
+    }
+
+    
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const manhwaId = 'manhwa1';
+    const readKey = 'read_' + manhwaId;
+    const read = JSON.parse(localStorage.getItem(readKey) || '[]');
+    if (!read.includes(CHAPTER_NUM)) {
+      read.push(CHAPTER_NUM);
+      localStorage.setItem(readKey, JSON.stringify(read));
+    }
+  </script>
+</body>
+</html>

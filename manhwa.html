@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>комиксы Мефа </title>
+  <link rel="stylesheet" href="manhwa.css">
+</head>
+<body>
+  <div class="page-container">
+
+    <header class="site-header">
+      <div class="logo">
+        <h1>комиксы Мефа<span class="accent-dot">.</span></h1>
+      </div>
+      <div class="author-badge">
+        &mdash; <span>Мефисто</span> (автор)
+      </div>
+    </header>
+
+    <div class="welcome-banner" id="welcomeBanner">
+      <div class="welcome-text">
+        <h2>добро пожаловать в комикс-раздел</h2>
+        <p>здесь я публикую свои собственные комиксы.</p>
+        <div class="telegram-note">
+          <span>запретграм:</span> <a href="https://t.me/GreeenDeath" target="_blank" rel="noopener noreferrer">@GreeenDeath</a>
+        </div>
+        <p>мои работы в других местах:</p>
+        <a href="index.html" class="custom-link">← вернуться в библиотеку</a>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-label">навигация</span>
+      <div class="filter-btn active" data-filter="all">все манхвы</div>
+      <div class="filter-btn" data-filter="ongoing">в процессе</div>
+      <div class="filter-btn" data-filter="completed">завершённые</div>
+    </div>
+
+    <div class="fanfic-grid" id="manhwaGrid">
+    </div>
+
+    <div class="footer-note" id="footerNote">
+    </div>
+  </div>
+
+  <script>
+    
+    const manhwaLibrary = [
+      {
+        title: "Green Death",
+        status: "ongoing",         // ongoing | completed | oneshot
+        statusLabel: "в процессе",
+        genres: ["фэнтези", "драма", "мистика", "хоррор", "другие расы", "демоны", "жнецы"],
+        description: "Камано живёт в послевоенном мире, где демоны, жнецы и люди учатся в одной Академии. Он обычный подросток — пока его не начинают преследовать сны о войне, которой он не видел, и воспоминания, которые ему не принадлежат.",
+        chapters: 3,           
+        cover: "images/manhwa/cover1.png",
+        link: "manhwa/manhwa1/index.html" 
+      }
+    ];
+
+    const grid = document.getElementById('manhwaGrid');
+    const welcomeBanner = document.getElementById('welcomeBanner');
+    const footerNote = document.getElementById('footerNote');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        if (m === '"') return '&quot;';
+        return m;
+      });
+    }
+
+    function addRippleEffect(event, element) {
+      const rect = element.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      ripple.classList.add('click-ripple');
+      ripple.style.position = 'absolute';
+      ripple.style.pointerEvents = 'none';
+      element.style.position = 'relative';
+      element.style.overflow = 'hidden';
+      element.appendChild(ripple);
+      setTimeout(() => {
+        ripple.remove();
+        element.style.overflow = '';
+      }, 500);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.textContent = message;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '20px';
+      toast.style.left = '50%';
+      toast.style.transform = 'translateX(-50%)';
+      toast.style.backgroundColor = '#1e1c28';
+      toast.style.color = '#d4c8e6';
+      toast.style.padding = '0.6rem 1.4rem';
+      toast.style.borderRadius = '40px';
+      toast.style.fontSize = '0.85rem';
+      toast.style.zIndex = '999';
+      toast.style.border = '1px solid #6d5b88';
+      toast.style.fontWeight = '500';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2000);
+    }
+
+    // ===== КАРТОЧКА МАНХВЫ =====
+    function createManhwaCard(item, delayIndex = 0) {
+      const card = document.createElement('div');
+      card.className = 'fic-card manhwa-card';
+      card.dataset.category = item.status;
+
+      const delay = Math.min(delayIndex * 0.05, 0.4);
+      card.style.animation = `cardFloatIn 0.45s ease-out ${delay}s forwards`;
+      card.style.opacity = '0';
+
+      // обложка или заглушка
+      const coverHTML = item.cover
+        ? `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" class="manhwa-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+           <div class="manhwa-cover-placeholder" style="display:none;">${escapeHtml(item.title.charAt(0))}</div>`
+        : `<div class="manhwa-cover-placeholder">${escapeHtml(item.title.charAt(0))}</div>`;
+
+      card.innerHTML = `
+        <div class="manhwa-cover-wrap">
+          ${coverHTML}
+          <span class="status-badge status-${item.status}">${escapeHtml(item.statusLabel)}</span>
+        </div>
+        <div class="fic-info">
+          <div class="fic-title">
+            ${escapeHtml(item.title)}
+          </div>
+          <div class="fic-meta">
+            <span>автор: <strong>Мефисто</strong></span>
+            <span class="pairing">${item.chapters} ${item.chapters === 1 ? 'глава' : 'глав'}</span>
+          </div>
+          <div class="description">
+            ${escapeHtml(item.description)}
+          </div>
+          <div class="tags">
+            ${item.genres.map(g => `<span class="tag">${escapeHtml(g)}</span>`).join('')}
+          </div>
+        </div>
+      `;
+
+      card.addEventListener('click', function(e) {
+        e.stopPropagation();
+        addRippleEffect(e, card);
+        if (item.link) {
+          setTimeout(() => { window.location.href = item.link; }, 130);
+        } else {
+          showToast('глава скоро появится');
+        }
+      });
+
+      return card;
+    }
+    // ===== РЕНДЕР =====
+    function renderCards(filter = 'all') {
+      if (filter === 'about') {
+        welcomeBanner.style.display = 'none';
+        footerNote.style.display = 'none';
+      } else {
+        welcomeBanner.style.display = '';
+        footerNote.style.display = '';
+      }
+
+      const oldCards = document.querySelectorAll('.fic-card, .about-container');
+      if (oldCards.length) {
+        grid.style.transition = 'opacity 0.12s';
+        grid.style.opacity = '0.5';
+        setTimeout(() => {
+          grid.innerHTML = '';
+          grid.style.opacity = '1';
+          grid.style.transition = '';
+          insertContent(filter);
+        }, 130);
+      } else {
+        grid.innerHTML = '';
+        insertContent(filter);
+      }
+    }
+
+    function insertContent(filter) {
+      if (filter === 'about') {
+        grid.appendChild(createAuthorSection());
+        return;
+      }
+
+      const filtered = filter === 'all'
+        ? manhwaLibrary
+        : manhwaLibrary.filter(m => m.status === filter);
+
+      if (filtered.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'fic-card';
+        emptyMsg.style.textAlign = 'center';
+        emptyMsg.style.justifyContent = 'center';
+        emptyMsg.style.cursor = 'default';
+        emptyMsg.innerHTML = `<div class="fic-info" style="align-items:center;">
+          <div class="fic-title">ничего не найдено</div>
+          <div class="description">попробуй другую категорию</div>
+        </div>`;
+        grid.appendChild(emptyMsg);
+        return;
+      }
+
+      filtered.forEach((item, idx) => {
+        grid.appendChild(createManhwaCard(item, idx));
+      });
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.style.transform = 'scale(0.96)';
+        setTimeout(() => { this.style.transform = ''; }, 120);
+        filterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderCards(this.dataset.filter);
+      });
+    });
+
+    renderCards('all');
+  </script>
+</body>
+</html>
